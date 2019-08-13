@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">eraportTelu</string>
+    <string name="sdn_1_cipagalo">SDN 01 CIPAGALO</string>
+    <string name="e_report">E-REPROT</string>
+    <string name="username">Username</string>
+    <string name="log_in">LOGIN</string>
+    <string name="lupa_password">Lupa Password?</string>
 </resources>
