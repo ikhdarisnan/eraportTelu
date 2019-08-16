@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">eraportTelu</string>
     <string name="sdn_1_cipagalo">SDN 01 CIPAGALO</string>
-    <string name="e_report">E-REPROT</string>
+    <string name="e_report">E-RAPORT</string>
     <string name="username">Username</string>
     <string name="log_in">LOGIN</string>
     <string name="lupa_password">Lupa Password?</string>
@@ -18,4 +18,25 @@
     <string name="ganti_password">Ganti Password</string>
     <string name="nama_panggilan">Nama Panggilan</string>
     <string name="john">John</string>
+    <string name="alamat">Alamat</string>
+    <string name="perumahan_palem_2_jl_sukapura_bandung">Perumahan Palem 2, Jl. Sukapura, Bandung.</string>
+    <string name="tempat_tanggal_lahir">Tempat, tanggal lahir</string>
+    <string name="bandung_23_may_2010">Bandung, 23 May 2010</string>
+    <string name="_082388889999">082388889999</string>
+    <string name="kontak_murid">Kontak Murid</string>
+    <string name="kelas_semester">Kelas / Semester</string>
+    <string name="_3a_ganjil">3A / GANJIL</string>
+    <string name="wali_kelas">Wali Kelas</string>
+    <string name="rahmawati_s_pd_sd">Rahmawati, S.Pd.SD.</string>
+    <string name="kontak_wali_kelas">Kontak Wali Kelas</string>
+    <string name="_081199998888">081199998888</string>
+    <string name="nama_orang_tua">Nama Orang Tua</string>
+    <string name="nurhayati_rahim">Nurhayati Rahim</string>
+    <string name="kontak_orang_tua">Kontak Orang Tua</string>
+    <string name="_089999998888">089999998888</string>
+    <string name="nip">NIP. 1111000248291</string>
+    <string name="input_nilai">INPUT NILAI</string>
+
+    <string name="drawer_open">Left Drawer Open</string>
+    <string name="drawer_close">Left Drawer Closed</string>
 </resources>

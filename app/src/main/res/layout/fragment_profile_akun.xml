@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_profil_fotoSiswa"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -99,8 +99,9 @@
             android:id="@+id/text_profil_alamatView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Alamat"
+            android:text="@string/alamat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_namaPanggilanView" />
 
@@ -108,8 +109,9 @@
             android:id="@+id/text_profil_alamat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="Perumahan Palem 2, Jl. Sukapura, Bandung."
+            android:text="@string/perumahan_palem_2_jl_sukapura_bandung"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_namaPanggilan" />
@@ -118,8 +120,9 @@
             android:id="@+id/text_profil_ttlView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Tempat, tanggal lahir"
+            android:text="@string/tempat_tanggal_lahir"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_alamat" />
 
@@ -127,8 +130,9 @@
             android:id="@+id/text_profil_ttl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="Bandung, 23 May 2010"
+            android:text="@string/bandung_23_may_2010"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_alamat" />
@@ -137,8 +141,9 @@
             android:id="@+id/text_profil_kontakMuridView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Kontak Murid"
+            android:text="@string/kontak_murid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_ttlView" />
 
@@ -146,8 +151,9 @@
             android:id="@+id/text_profil_Kontak"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="082388889999"
+            android:text="@string/_082388889999"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_ttl" />
@@ -156,8 +162,9 @@
             android:id="@+id/text_profil_kelasView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Kelas / Semester"
+            android:text="@string/kelas_semester"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_kontakMuridView" />
 
@@ -165,8 +172,9 @@
             android:id="@+id/text_profil_Kelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="3A / GANJIL"
+            android:text="@string/_3a_ganjil"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_Kontak" />
@@ -175,9 +183,9 @@
             android:id="@+id/text_profil_waliKelasView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Wali Kelas"
+            android:text="@string/wali_kelas"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_kelasView" />
 
@@ -185,9 +193,9 @@
             android:id="@+id/text_profil_waliKelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="Rahmawati, S.Pd.SD."
+            android:text="@string/rahmawati_s_pd_sd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_Kelas" />
@@ -196,8 +204,9 @@
             android:id="@+id/text_profil_kontakWaliKelasView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Kontak Wali Kelas"
+            android:text="@string/kontak_wali_kelas"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_waliKelasView" />
 
@@ -205,8 +214,9 @@
             android:id="@+id/text_profil_kontakWaliKelas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="081199998888"
+            android:text="@string/_081199998888"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_waliKelas" />
@@ -215,9 +225,9 @@
             android:id="@+id/text_profil_namaOrtuView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Nama Orang Tua"
+            android:text="@string/nama_orang_tua"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_kontakWaliKelasView" />
 
@@ -225,9 +235,9 @@
             android:id="@+id/text_profil_namaOrtu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="Nurhayati Rahim"
+            android:text="@string/nurhayati_rahim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_kontakWaliKelas" />
@@ -236,8 +246,9 @@
             android:id="@+id/text_profil_kontakOrtuView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Kontak Orang Tua"
+            android:text="@string/kontak_orang_tua"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_profil_namaOrtuView" />
 
@@ -245,8 +256,9 @@
             android:id="@+id/text_profil_kontakOrtu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="089999998888"
+            android:text="@string/_089999998888"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/text_profil_namaOrtu" />
