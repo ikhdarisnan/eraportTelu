@@ -70,8 +70,9 @@
             android:id="@+id/et_login_password"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:fontFamily="@font/poppinsregular"
-            android:hint="Password" />
+            android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
 
     <Button

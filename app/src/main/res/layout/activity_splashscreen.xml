@@ -7,6 +7,7 @@
     tools:context=".SplashscreenActivity">
 
     <ImageView
+        android:id="@+id/img_splash_imgSplash"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

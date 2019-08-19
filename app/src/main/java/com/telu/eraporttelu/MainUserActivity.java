@@ -2,6 +2,7 @@ package com.telu.eraporttelu;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -44,7 +45,13 @@ public class MainUserActivity extends AppCompatActivity {
         initViewMainUser();
         initLoadActionBar();
         initNavigationDrawerLeft();
-        logout();
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
     }
 
     private void initViewMainUser(){
@@ -95,25 +102,26 @@ public class MainUserActivity extends AppCompatActivity {
         Log.d(TAG, "onPostCreate: ");
     }
 
+    @Override
+    public void onBackPressed() {
+        logout();
+    }
+
     private void logout(){
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainUserActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainUserActivity.this);
 
-                builder.setTitle("Logout Akun?")
-                        .setMessage("Apakah anda yakin ingin keluar?")
-                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainUserActivity.this, "Testing Yes", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("Tidak", null);
+        builder.setTitle("Logout Akun?")
+                .setMessage("Apakah anda yakin ingin keluar?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(MainUserActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null);
 
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

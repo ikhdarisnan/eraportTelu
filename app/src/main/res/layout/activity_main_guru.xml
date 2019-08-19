@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/layout_mainGuru_drawerLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,13 +30,23 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_mainGuru_leftDrawer"
-        android:layout_width="285dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorSecondaryDark">
 
+        <Button
+            android:id="@+id/btn_leftDrawerGuru_Close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|top"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_close_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:id="@+id/text_mainGuru_namaSiswa"
+            android:id="@+id/text_mainGuru_namaGuru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -43,12 +54,12 @@
             android:fontFamily="@font/poppinsbold"
             android:text="@string/rahmawati_s_pd_sd"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="23sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_mainGuru_NIS"
+            android:id="@+id/text_mainGuru_NIP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -57,7 +68,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mainGuru_namaSiswa" />
+            app:layout_constraintTop_toBottomOf="@+id/text_mainGuru_namaGuru" />
 
         <View
             android:id="@+id/divider1"
@@ -67,7 +78,7 @@
             android:background="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_mainGuru_NIS" />
+            app:layout_constraintTop_toBottomOf="@id/text_mainGuru_NIP" />
 
         <LinearLayout
             android:id="@+id/linearLayout_mainGuru_profilAkun"
