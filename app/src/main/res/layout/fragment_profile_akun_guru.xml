@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profil_fotoSiswa"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/gambaruser"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_profil_namaGuru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/rahmawati_s_pd_sd"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_profil_fotoSiswa" />
+
+    <TextView
+        android:id="@+id/text_profil_nipGuru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/nip"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_profil_namaGuru" />
+
+
+</android.support.constraint.ConstraintLayout>

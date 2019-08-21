@@ -18,7 +18,7 @@
             layout="@layout/appbar_eraport_guru" />
 
         <FrameLayout
-            android:id="@+id/layout__frameLayout"
+            android:id="@+id/layout_frameLayout_GuruContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

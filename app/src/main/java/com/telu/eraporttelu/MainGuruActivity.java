@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.telu.eraporttelu.fragment.lihatProfilGuruFragment;
+import com.telu.eraporttelu.fragment.lihatProfilSiswaFragment;
+import com.telu.eraporttelu.fragment.pengaturanFragment;
+
 public class MainGuruActivity extends AppCompatActivity {
 
     private static final String TAG = "MainGuruActivity";
@@ -32,6 +36,9 @@ public class MainGuruActivity extends AppCompatActivity {
     private LinearLayout menuLihatNilaiGuru;
     private LinearLayout menuPengaturanGuru;
     private LinearLayout logoutGuru;
+
+    lihatProfilGuruFragment lihatProfilGuruFragment;
+    pengaturanFragment pengaturanFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,19 @@ public class MainGuruActivity extends AppCompatActivity {
                 logout();
             }
         });
+        menuLihatProfilGuru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfilGuruFragment();
+            }
+        });
+        menuPengaturanGuru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPengaturanFragment();
+            }
+        });
+
     }
 
     private void initLoadActionBar() {
@@ -98,8 +118,24 @@ public class MainGuruActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public void openPengaturanFragment(){
+        pengaturanFragment = pengaturanFragment.newInstance(MainGuruActivity.this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_frameLayout_GuruContainer, pengaturanFragment,"Pengaturan Fragment").commit();
+        leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
+    }
+
+    private void openProfilGuruFragment(){
+        lihatProfilGuruFragment = lihatProfilGuruFragment.newInstance(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_frameLayout_GuruContainer, lihatProfilGuruFragment,"Lihat Profil Fragment").commit();
+        leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
+    }
+    @Override
     public void onBackPressed() {
-        logout();
+        super.onBackPressed();
     }
 
     private void logout(){

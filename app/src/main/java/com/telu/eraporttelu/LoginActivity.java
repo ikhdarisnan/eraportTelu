@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(LoginActivity.this, "apa + " +getUname.toString(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainGuruActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainUserActivity.class));
                     finish();
                 }
             });
