@@ -2,7 +2,7 @@
     <string name="app_name">eraportTelu</string>
     <string name="sdn_1_cipagalo">SDN 01 CIPAGALO</string>
     <string name="e_report">E-RAPORT</string>
-    <string name="username">Username</string>
+    <string name="username">NIS/NIP</string>
     <string name="log_in">LOGIN</string>
     <string name="lupa_password">Lupa Password?</string>
     <string name="johny_alexander">Johny Alexander</string>
@@ -40,4 +40,21 @@
     <string name="drawer_open">Left Drawer Open</string>
     <string name="drawer_close">Left Drawer Closed</string>
     <string name="password">Password</string>
+    <string name="pilih_kelas">Pilih Kelas:</string>
+    <string name="pilih_mata_pelajaran">Pilih Mata Pelajaran</string>
+    <string name="daftar_siswa">Daftar Siswa</string>
+    <string name="nama_siswa">Nama Siswa</string>
+    <string name="pendidikan_kewarganegaraan">Pendidikan Kewarganegaraan</string>
+    <string name="nilai_uas">Nilai UAS</string>
+    <string name="_80">80</string>
+    <string name="uts">Nilai UTS</string>
+    <string name="ulangan_harian_1">Ulangan Harian 1</string>
+    <string name="ulangan_harian_2">Ulangan Harian 2</string>
+    <string name="ulangan_harian_3">Ulangan Harian 3</string>
+    <string name="ulangan_harian_4">Ulangan Harian 4</string>
+    <string name="ulangan_harian_5">Ulangan Harian 5</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="tahun_ajaran">Tahun Ajaran</string>
+    <string name="semester">Semester</string>
 </resources>

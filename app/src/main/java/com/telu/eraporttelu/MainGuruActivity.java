@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.telu.eraporttelu.fragment.inputNilaiFragment;
 import com.telu.eraporttelu.fragment.lihatProfilGuruFragment;
 import com.telu.eraporttelu.fragment.lihatProfilSiswaFragment;
 import com.telu.eraporttelu.fragment.pengaturanFragment;
@@ -39,6 +40,7 @@ public class MainGuruActivity extends AppCompatActivity {
 
     lihatProfilGuruFragment lihatProfilGuruFragment;
     pengaturanFragment pengaturanFragment;
+    inputNilaiFragment inputNilaiFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,13 @@ public class MainGuruActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openPengaturanFragment();
+            }
+        });
+
+        menuLihatNilaiGuru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openInputNilaiFragment();
             }
         });
 
@@ -131,6 +140,12 @@ public class MainGuruActivity extends AppCompatActivity {
     private void openProfilGuruFragment(){
         lihatProfilGuruFragment = lihatProfilGuruFragment.newInstance(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_frameLayout_GuruContainer, lihatProfilGuruFragment,"Lihat Profil Fragment").commit();
+        leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
+    }
+
+    private void openInputNilaiFragment(){
+        inputNilaiFragment = inputNilaiFragment.newInstance(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_frameLayout_GuruContainer, inputNilaiFragment,"Input Nilai Fragment").commit();
         leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
     }
     @Override

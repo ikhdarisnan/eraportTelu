@@ -39,7 +39,7 @@ public class lihatProfilGuruFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View lihatProfileView = inflater.inflate(R.layout.fragment_profile_akun_siswa,container,false);
+        View lihatProfileView = inflater.inflate(R.layout.fragment_profile_akun_guru,container,false);
         namaGuru = lihatProfileView.findViewById(R.id.text_profil_namaGuru);
         nipGuru = lihatProfileView.findViewById(R.id.text_profil_nipGuru);
 //        nisnSiswa = lihatProfileView.findViewById(R.id.text_profil_nisNasionalSiswa);

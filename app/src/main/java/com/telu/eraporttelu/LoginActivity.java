@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     private TextInputLayout TIusername, TIpassword;
     private AutoCompleteTextView username;
     private EditText password;
@@ -26,7 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initViewLogin();
-        loginAuth();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginAuth();
+            }
+        });
     }
 
     private void initViewLogin(){
@@ -42,31 +48,14 @@ public class LoginActivity extends AppCompatActivity {
         final String getUname = username.getText().toString();
         final String getPassword = password.getText().toString();
         if ((getUname.equals("guru")) && (getPassword.equals("guru"))){
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(LoginActivity.this, username.toString() + getPassword.toString(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainGuruActivity.class));
-                }
-            });
+            startActivity(new Intent(LoginActivity.this, MainGuruActivity.class));
+            finish();
         }
-        else if ((username.getText().equals("siswa")) && (password.getText().equals("siswa"))){
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(LoginActivity.this, username.toString() + getPassword.toString(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainUserActivity.class));
-                }
-            });
+        else if ((getUname.equals("siswa")) && (getPassword.equals("siswa"))){
+            startActivity(new Intent(LoginActivity.this, MainUserActivity.class));
+            finish();
         }else {
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Toast.makeText(LoginActivity.this, "apa + " +getUname.toString(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainUserActivity.class));
-                    finish();
-                }
-            });
+            Toast.makeText(LoginActivity.this, "Failed" , Toast.LENGTH_SHORT).show();
         }
     }
 
