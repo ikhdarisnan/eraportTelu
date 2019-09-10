@@ -1,8 +1,10 @@
 package com.telu.eraporttelu;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,11 +20,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.telu.eraporttelu.fragment.inputNilaiFragment;
 import com.telu.eraporttelu.fragment.lihatProfilGuruFragment;
 import com.telu.eraporttelu.fragment.lihatProfilSiswaFragment;
 import com.telu.eraporttelu.fragment.pengaturanFragment;
+import com.telu.eraporttelu.model.modelDataGuru;
+import com.telu.eraporttelu.response.loadGuru;
+import com.telu.eraporttelu.service.APIClient;
+import com.telu.eraporttelu.service.APIInterface;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainGuruActivity extends AppCompatActivity {
 
@@ -37,10 +50,15 @@ public class MainGuruActivity extends AppCompatActivity {
     private LinearLayout menuLihatNilaiGuru;
     private LinearLayout menuPengaturanGuru;
     private LinearLayout logoutGuru;
+    private ProgressDialog pd;
+
+    private ArrayList<modelDataGuru> listDataDiriGuru;
 
     lihatProfilGuruFragment lihatProfilGuruFragment;
     pengaturanFragment pengaturanFragment;
     inputNilaiFragment inputNilaiFragment;
+
+    APIInterface mApiInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +67,12 @@ public class MainGuruActivity extends AppCompatActivity {
         initViewMainUser();
         initLoadActionBar();
         initNavigationDrawerLeft();
+        openProfilGuruFragment();
+
+        mApiInterface = APIClient.getClient().create(APIInterface.class);
+        onLoadProfileGuru("11223344");
+
+        listDataDiriGuru = new ArrayList<>();
 
         logoutGuru.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +104,7 @@ public class MainGuruActivity extends AppCompatActivity {
 
     private void initLoadActionBar() {
         //TODO Toolbar Main Activity
-        Toolbar toolbar = (Toolbar) findViewById(R.id.appbarGuru);
+        Toolbar toolbar = findViewById(R.id.appbarGuru);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -95,6 +119,7 @@ public class MainGuruActivity extends AppCompatActivity {
         menuLihatNilaiGuru = findViewById(R.id.linearLayout_mainGuru_lihatNilai);
         menuPengaturanGuru = findViewById(R.id.linearLayout_mainGuru_pengaturan);
         logoutGuru = findViewById(R.id.linearLayout_mainGuru_logout);
+        pd = new ProgressDialog(MainGuruActivity.this);
     }
 
     @SuppressLint("RtlHardcoded")
@@ -147,6 +172,45 @@ public class MainGuruActivity extends AppCompatActivity {
         inputNilaiFragment = inputNilaiFragment.newInstance(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_frameLayout_GuruContainer, inputNilaiFragment,"Input Nilai Fragment").commit();
         leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
+    }
+
+    private void onLoadProfileGuru(String NIP){
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        Call<loadGuru> loadGuruProfileCall = mApiInterface.getDataGuru(NIP);
+        loadGuruProfileCall.enqueue(new Callback<loadGuru>() {
+            @Override
+            public void onResponse(Call<loadGuru> call, Response<loadGuru> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getData().size() > 0){
+                        for (int i=0; i<response.body().getData().size(); i++){
+                            pd.cancel();
+                            listDataDiriGuru.add(response.body().getData().get(i));
+
+                            namaGuru.setText(listDataDiriGuru.get(i).getNamaGuru());
+                            nipGuru.setText(listDataDiriGuru.get(i).getNIPGuru());
+
+                            getSharedPreferences("GURU:DATADIRI", MODE_PRIVATE).edit().putString("NIPGuru",listDataDiriGuru.get(i).getNIPGuru()).apply();
+                            getSharedPreferences("GURU:DATADIRI", MODE_PRIVATE).edit().putString("NamaGuru",listDataDiriGuru.get(i).getNamaGuru()).apply();
+                            getSharedPreferences("GURU", MODE_PRIVATE).edit().putString("isLogin",listDataDiriGuru.get(i).getIsLogin()).apply();
+
+                        }
+                    }else {
+                        pd.cancel();
+                        Toast.makeText(MainGuruActivity.this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    pd.cancel();
+                    Toast.makeText(MainGuruActivity.this, "Error 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<loadGuru> call, Throwable t) {
+                pd.cancel();
+                Toast.makeText(MainGuruActivity.this, "Error: "+ t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public void onBackPressed() {

@@ -54,7 +54,10 @@
     <string name="ulangan_harian_4">Ulangan Harian 4</string>
     <string name="ulangan_harian_5">Ulangan Harian 5</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="tahun_ajaran">Tahun Ajaran</string>
     <string name="semester">Semester</string>
+    <string name="kontak">Kontak</string>
+    <string name="wali_murid_kelas">Wali Murid Kelas</string>
+    <string name="guru_mata_pelajaran">Guru Mata Pelajaran</string>
 </resources>
