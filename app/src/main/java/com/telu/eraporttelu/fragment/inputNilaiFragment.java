@@ -22,9 +22,11 @@ import com.telu.eraporttelu.R;
 import com.telu.eraporttelu.adapter.siswaAdapter;
 import com.telu.eraporttelu.model.modelDataKelas;
 import com.telu.eraporttelu.model.modelDataMapel;
+import com.telu.eraporttelu.model.modelDataTA;
 import com.telu.eraporttelu.model.modelSiswa;
 import com.telu.eraporttelu.response.loadKelas;
 import com.telu.eraporttelu.response.loadMapel;
+import com.telu.eraporttelu.response.loadTA;
 import com.telu.eraporttelu.service.APIClient;
 import com.telu.eraporttelu.service.APIInterface;
 
@@ -47,9 +49,10 @@ public class inputNilaiFragment extends Fragment {
 
     private ArrayAdapter<String> spinnerKelasAdapter, spinnerMapelAdapter, spinnerTAAdapter, spinnerSemesterAdapter;
 
-    private ArrayList<String> arraySpinnerTA, arraySpinnerSemester;
-    private ArrayList<modelDataMapel> arraySpinnerMapel;
+    private ArrayList<String> arraySpinnerSemester;
+    private ArrayList<modelDataMapel> listDataMapel;
     private ArrayList<modelDataKelas> listDataKelas;
+    private ArrayList<modelDataTA> listDataTa;
 
     private ArrayList<modelSiswa> listSiswa;
     public String kelasSelected, TASelected, semesterSelected, mapelSelected, NIP;
@@ -76,9 +79,9 @@ public class inputNilaiFragment extends Fragment {
         NIP = preferences.getString("NIPGuru", null);
 
         listDataKelas = new ArrayList<>();
-        arraySpinnerMapel = new ArrayList<>();
+        listDataMapel = new ArrayList<>();
+        listDataTa = new ArrayList<>();
 
-        arraySpinnerTA = new ArrayList<>();
         arraySpinnerSemester = new ArrayList<>();
 
         listSiswa = new ArrayList<>();
@@ -96,28 +99,7 @@ public class inputNilaiFragment extends Fragment {
 
         loadDaftarKelas(NIP);
         loadDaftarMapel(NIP);
-
-        //Spinner TA
-        arraySpinnerTA.add("2017/2018");
-        arraySpinnerTA.add("2018/2019");
-        arraySpinnerTA.add("2019/2020");
-
-        spinnerTAAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arraySpinnerTA);
-        spinnerTAAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
-        spinnerTA.setAdapter(spinnerTAAdapter);
-        //TASelected = spinnerTA.getSelectedItem().toString();
-        spinnerTA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TASelected = parent.getItemAtPosition(position).toString();
-                siswaAdapter.notifyItemChanged(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        loadDaftarTA();
 
         //Spinner Semester
         arraySpinnerSemester.add("GANJIL");
@@ -216,12 +198,12 @@ public class inputNilaiFragment extends Fragment {
                     if (response.body().getData().size()>0){
                         for (int i=0; i<response.body().getData().size();i++){
                             pd.cancel();
-                            arraySpinnerMapel.add(response.body().getData().get(i));
+                            listDataMapel.add(response.body().getData().get(i));
 
                             //Spinner Mapel
                             final List<String> arrayTempMapel= new ArrayList<>();
-                            for (int j =0; j<arraySpinnerMapel.size();j++){
-                                String namaKelas = arraySpinnerMapel.get(j).getNamaMapel();
+                            for (int j =0; j<listDataMapel.size();j++){
+                                String namaKelas = listDataMapel.get(j).getNamaMapel();
                                 arrayTempMapel.add(namaKelas);
                             }
 
@@ -250,7 +232,57 @@ public class inputNilaiFragment extends Fragment {
 
 
     private void loadDaftarTA(){
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        Call<loadTA> getAllTaCall = mApiInterface.getAllDataTA();
+        getAllTaCall.enqueue(new Callback<loadTA>() {
+            @Override
+            public void onResponse(Call<loadTA> call, Response<loadTA> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getData().size()>0){
+                        for (int i =0;i<response.body().getData().size();i++){
+                            pd.cancel();
+                            listDataTa.add(response.body().getData().get(i));
 
+                            final List<String> arrayTempTa = new ArrayList<>();
+                            for (int j = 0; j<listDataTa.size();j++){
+                                String TA = listDataTa.get(j).getNamaTA();
+                                arrayTempTa.add(TA);
+                            }
+
+                            spinnerTAAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempTa);
+                            spinnerTAAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
+                            spinnerTA.setAdapter(spinnerTAAdapter);
+//                            TASelected = spinnerTA.getSelectedItem().toString();
+//                            spinnerTA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                @Override
+//                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                                    TASelected = parent.getItemAtPosition(position).toString();
+//                                    siswaAdapter.notifyItemChanged(position);
+//                                }
+//
+//                                @Override
+//                                public void onNothingSelected(AdapterView<?> parent) {
+//
+//                                }
+//                            });
+                        }
+                    }else {
+                        pd.cancel();
+                        Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    pd.cancel();
+                    Toast.makeText(mContext, "Error 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<loadTA> call, Throwable t) {
+                pd.cancel();
+                Toast.makeText(mContext, "Error 2: "+ t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadDaftarSiswaKelas(String kelas){
