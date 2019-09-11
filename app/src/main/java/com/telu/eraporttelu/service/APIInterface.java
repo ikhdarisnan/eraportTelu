@@ -1,5 +1,6 @@
 package com.telu.eraporttelu.service;
 
+import com.telu.eraporttelu.model.modelNilai;
 import com.telu.eraporttelu.response.loadGuru;
 import com.telu.eraporttelu.response.loadKelas;
 import com.telu.eraporttelu.response.loadMapel;
@@ -7,7 +8,9 @@ import com.telu.eraporttelu.response.loadNilai;
 import com.telu.eraporttelu.response.loadTA;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -22,7 +25,7 @@ public interface APIInterface {
     @GET("Guru/mapel/{NIPGuru}")
     Call<loadMapel> getDataMapel(@Path("NIPGuru")String NIPGuru);
 
-    @GET("Guru/TA")
+    @GET("Ta")
     Call<loadTA> getAllDataTA();
 
     @GET("Nilai/siswaGuru")
@@ -31,4 +34,7 @@ public interface APIInterface {
             @Query("NISSiswa") String NISSiswa,
             @Query("idMapel") String idMapel
             );
+
+    @POST("Nilai/siswaGuru")
+    Call<loadNilai> postNilai(@Body modelNilai objNilai);
 }

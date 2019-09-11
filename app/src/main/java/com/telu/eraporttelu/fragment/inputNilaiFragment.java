@@ -246,8 +246,10 @@ public class inputNilaiFragment extends Fragment {
 
                             final List<String> arrayTempTa = new ArrayList<>();
                             for (int j = 0; j<listDataTa.size();j++){
-                                String TA = listDataTa.get(j).getNamaTA();
-                                arrayTempTa.add(TA);
+                                if (listDataTa.get(j).getStatusTA().equals("1")){
+                                    String TA = listDataTa.get(j).getNamaTA();
+                                    arrayTempTa.add(TA);
+                                }
                             }
 
                             spinnerTAAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempTa);
@@ -288,6 +290,7 @@ public class inputNilaiFragment extends Fragment {
     private void loadDaftarSiswaKelas(String kelas){
 
     }
+
 
 
     @Override

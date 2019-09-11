@@ -60,4 +60,13 @@
     <string name="kontak">Kontak</string>
     <string name="wali_murid_kelas">Wali Murid Kelas</string>
     <string name="guru_mata_pelajaran">Guru Mata Pelajaran</string>
+    <string name="pemerintah_kabupaten_bandung">PEMERINTAH KABUPATEN BANDUNG</string>
+    <string name="dinas_pendidikan_kebudayaan_pemuda_dan_olahraga">DINAS PENDIDIKAN KEBUDAYAAN PEMUDA DAN OLAHRAGA</string>
+    <string name="sd_negeri_01_cipagalo">SD NEGERI 01 CIPAGALO</string>
+    <string name="alamat_sekolah">Jl. Terusan Buah Batu No.320, Cipagalo, Kec. Bojongsoang, Bandung, Jawa Barat</string>
+    <string name="no">No.</string>
+    <string name="mata_pelajaran">Mata Pelajaran</string>
+    <string name="kkm">KKM</string>
+    <string name="nilai">Nilai</string>
+    <string name="deskripsi">Deskripsi</string>
 </resources>

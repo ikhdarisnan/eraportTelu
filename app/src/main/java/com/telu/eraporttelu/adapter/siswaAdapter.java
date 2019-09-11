@@ -2,6 +2,7 @@ package com.telu.eraporttelu.adapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -20,17 +21,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.telu.eraporttelu.R;
+import com.telu.eraporttelu.model.modelNilai;
 import com.telu.eraporttelu.model.modelSiswa;
+import com.telu.eraporttelu.response.loadNilai;
+import com.telu.eraporttelu.service.APIClient;
+import com.telu.eraporttelu.service.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> {
 
     private static final String TAG = "siswaAdapter";
-    private String kelas, TA, semester, mapel;
+    private String kelas, TA, semester, mapel, NIPGuru,NISSiswa;
+    private TextView namaSiswaDialog,kelasSiswaDialog, TASiswaDialog, SemesterSiswaDialog, mapelSiswaDialog ;
     private Context context;
+    private ProgressDialog pd;
+    private EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog,nilaiUH3Dialog,nilaiUH4Dialog,nilaiUH5Dialog;
     private ArrayList<modelSiswa> listSiswa;
+
+    APIInterface mApiInterface;
 
     public siswaAdapter(String kelas, String TA, String semester, String mapel, Context context, ArrayList<modelSiswa> listSiswa) {
         this.kelas = kelas;
@@ -78,9 +92,9 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     }
 
     private void openInputNilaiDialog(String nama){
-        TextView namaSiswaDialog,kelasSiswaDialog, TASiswaDialog, SemesterSiswaDialog, mapelSiswaDialog ;
-        EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog,nilaiUH3Dialog,nilaiUH4Dialog,nilaiUH5Dialog;
         Button btnOkDilaog,btnCancelDialog;
+        pd = new ProgressDialog(context);
+        mApiInterface = APIClient.getClient().create(APIInterface.class);
 
         final Dialog inputNilai = new Dialog(context);
         inputNilai.setCancelable(false);
@@ -107,11 +121,16 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         TASiswaDialog.setText(TA);
         SemesterSiswaDialog.setText(semester);
         mapelSiswaDialog.setText(mapel);
+        NIPGuru = "11223344";
+        NISSiswa = "22";
+        mapel = "2";
+        semester = "GANJIL";
 
         btnOkDilaog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Button Ok Test Working", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Button Ok Test Working", Toast.LENGTH_SHORT).show();
+                postNilai();
             }
         });
 
@@ -135,5 +154,38 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         });
         inputNilai.show();
         inputNilai.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    private void postNilai(){
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        String uts,uas,uh1,uh2,uh3,uh4,uh5;
+        uts = nilaiUTSDialog.getText().toString();
+        uas = nilaiUASDialog.getText().toString();
+        uh1 = nilaiUH1Dialog.getText().toString();
+        uh2 = nilaiUH2Dialog.getText().toString();
+        uh3 = nilaiUH3Dialog.getText().toString();
+        uh4 = nilaiUH4Dialog.getText().toString();
+        uh5 = nilaiUH5Dialog.getText().toString();
+        final modelNilai thisNilai = new modelNilai(uts,uas,uh1,uh2,uh3,uh4,uh5,NISSiswa,NIPGuru,mapel,semester);
+        Call<loadNilai> postNilaiSiswa = mApiInterface.postNilai(thisNilai);
+        postNilaiSiswa.enqueue(new Callback<loadNilai>() {
+            @Override
+            public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
+                if (response.isSuccessful()){
+                    pd.cancel();
+                    Toast.makeText(context, "message: "+response.body().getMessage() , Toast.LENGTH_SHORT).show();
+                }else {
+                    pd.cancel();
+                    Toast.makeText(context, "Error 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<loadNilai> call, Throwable t) {
+                pd.cancel();
+                Toast.makeText(context, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

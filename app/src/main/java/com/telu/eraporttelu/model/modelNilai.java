@@ -15,7 +15,7 @@ public class modelNilai {
     private String idMapel;
     private String semester;
 
-    public modelNilai(String idNilai, String UTS, String UAS, String UH1, String UH2, String UH3, String UH4, String UH5, String NISSiswa, String NIPGuru, String idMapel, String semester) {
+    public modelNilai( String UTS, String UAS, String UH1, String UH2, String UH3, String UH4, String UH5, String NISSiswa, String NIPGuru, String idMapel, String semester) {
         this.idNilai = idNilai;
         this.UTS = UTS;
         this.UAS = UAS;

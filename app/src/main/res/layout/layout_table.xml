@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TableLayout
+        android:id="@+id/table_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TableRow>
+            <TextView
+                android:textStyle="bold"
+                android:padding="5dip"
+                android:text="@string/no" />
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="@string/mata_pelajaran" />
+
+            <TextView
+                android:textStyle="bold"
+                android:padding="5dip"
+                android:text="@string/kkm" />
+
+            <TextView
+                android:textStyle="bold"
+                android:padding="5dip"
+                android:text="@string/nilai" />
+
+            <TextView
+                android:textStyle="bold"
+                android:padding="5dip"
+                android:text="@string/deskripsi" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="1." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Pendidikan Agama" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="2." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Pendidikan Kewarganegaraan" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="3." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Bahasa Indonesia" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="4." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Bahasa Ingrris" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="5." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Matematika" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="6." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Ilmu Pengetahuan Alam" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="7." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Ilmu Pengetahuan Sosial" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="8." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Seni Budaya" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="9." />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Penjas Orkes" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Pilihan"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="A. Keterampilan"/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="B. TIK"/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="Muatan Lokal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="......."/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:padding="3dip"
+                android:text="" />
+
+            <TextView
+                android:padding="3dip"
+                android:text="......."/>
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+
+            <TextView
+                android:padding="3dip" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/table_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0"
+        app:layout_constraintTop_toBottomOf="@id/table_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TableRow>
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Jumlah" />
+
+            <TextView
+                android:textStyle="bold"
+                android:padding="3dip"
+                android:text="000000" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Rata- Rata" />
+
+            <TextView
+                android:textStyle="bold"
+                android:padding="3dip" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="0"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Peringkat Kelas" />
+
+            <TextView
+                android:layout_column="0"
+                android:textStyle="bold"
+                android:padding="3dip" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>
