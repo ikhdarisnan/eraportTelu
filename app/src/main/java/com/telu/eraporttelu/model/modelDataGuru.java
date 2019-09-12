@@ -5,20 +5,16 @@ public class modelDataGuru {
     private String NIPGuru;
     private String namaGuru;
     private String namaPanggilan;
-    private String usernameGuru;
-    private String passwordGuru;
     private String idKelas;
     private String alamatGuru;
     private String kontakGuru;
     private String tempatTanggalLahir;
     private String isLogin;
 
-    public modelDataGuru(String NIPGuru, String namaGuru, String namaPanggilan, String usernameGuru, String passwordGuru, String idKelas, String alamatGuru, String kontakGuru, String tempatTanggalLahir, String isLogin) {
+    public modelDataGuru(String NIPGuru, String namaGuru, String namaPanggilan, String idKelas, String alamatGuru, String kontakGuru, String tempatTanggalLahir, String isLogin) {
         this.NIPGuru = NIPGuru;
         this.namaGuru = namaGuru;
         this.namaPanggilan = namaPanggilan;
-        this.usernameGuru = usernameGuru;
-        this.passwordGuru = passwordGuru;
         this.idKelas = idKelas;
         this.alamatGuru = alamatGuru;
         this.kontakGuru = kontakGuru;
@@ -48,22 +44,6 @@ public class modelDataGuru {
 
     public void setNamaPanggilan(String namaPanggilan) {
         this.namaPanggilan = namaPanggilan;
-    }
-
-    public String getUsernameGuru() {
-        return usernameGuru;
-    }
-
-    public void setUsernameGuru(String usernameGuru) {
-        this.usernameGuru = usernameGuru;
-    }
-
-    public String getPasswordGuru() {
-        return passwordGuru;
-    }
-
-    public void setPasswordGuru(String passwordGuru) {
-        this.passwordGuru = passwordGuru;
     }
 
     public String getIdKelas() {

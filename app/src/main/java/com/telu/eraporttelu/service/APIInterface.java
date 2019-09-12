@@ -5,6 +5,7 @@ import com.telu.eraporttelu.response.loadGuru;
 import com.telu.eraporttelu.response.loadKelas;
 import com.telu.eraporttelu.response.loadMapel;
 import com.telu.eraporttelu.response.loadNilai;
+import com.telu.eraporttelu.response.loadSiswa;
 import com.telu.eraporttelu.response.loadTA;
 
 import retrofit2.Call;
@@ -37,4 +38,7 @@ public interface APIInterface {
 
     @POST("Nilai/siswaGuru")
     Call<loadNilai> postNilai(@Body modelNilai objNilai);
+
+    @GET("Siswa/kelas/{namaKelas}")
+    Call<loadSiswa> getSiswa(@Path("namaKelas")String namaKelas);
 }

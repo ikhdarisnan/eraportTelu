@@ -42,7 +42,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     private Context context;
     private ProgressDialog pd;
     private EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog,nilaiUH3Dialog,nilaiUH4Dialog,nilaiUH5Dialog;
-    private ArrayList<modelSiswa> listSiswa;
+    private ArrayList<modelSiswa> listSiswa, listSiswaFull;
 
     APIInterface mApiInterface;
 
@@ -53,6 +53,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         this.mapel = mapel;
         this.context = context;
         this.listSiswa = listSiswa;
+        listSiswaFull = new ArrayList<>(listSiswa);
     }
 
     @NonNull
@@ -65,11 +66,11 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.namaSiswa.setText(listSiswa.get(position).getNama());
+        holder.namaSiswa.setText(listSiswa.get(position).getNamaSiswa());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nama = listSiswa.get(position).getNama();
+                String nama = listSiswa.get(position).getNamaSiswa();
                 openInputNilaiDialog(nama);
             }
         });
@@ -123,14 +124,16 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         mapelSiswaDialog.setText(mapel);
         NIPGuru = "11223344";
         NISSiswa = "22";
-        mapel = "2";
+        mapel = "3";
         semester = "GANJIL";
+
+        getNilai(NIPGuru,NISSiswa,mapel);
 
         btnOkDilaog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "Button Ok Test Working", Toast.LENGTH_SHORT).show();
-                postNilai();
+                validateNilai();
             }
         });
 
@@ -154,6 +157,57 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         });
         inputNilai.show();
         inputNilai.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    private void validateNilai(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Validasi Input Nilai")
+                .setMessage("Apakah anda yakin data yang diinputkan sudah benar ?")
+                .setNegativeButton("Belum", null)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        postNilai();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void getNilai(String NIPGuru, String NISSiswa, String idMapel){
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru,NISSiswa,idMapel);
+        getNilaiPlaceHolderCall.enqueue(new Callback<loadNilai>() {
+            @Override
+            public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getBundleData().size()>0){
+                        for (int i = 0; i<response.body().getBundleData().size();i++){
+                            nilaiUASDialog.setText(response.body().getBundleData().get(i).getUAS());
+                            nilaiUTSDialog.setText(response.body().getBundleData().get(i).getUTS());
+                            nilaiUH1Dialog.setText(response.body().getBundleData().get(i).getUH1());
+                            nilaiUH2Dialog.setText(response.body().getBundleData().get(i).getUH2());
+                            nilaiUH3Dialog.setText(response.body().getBundleData().get(i).getUH3());
+                            nilaiUH4Dialog.setText(response.body().getBundleData().get(i).getUH4());
+                            nilaiUH5Dialog.setText(response.body().getBundleData().get(i).getUH5());
+                            pd.cancel();
+                        }
+                    }else {
+                        pd.cancel();
+                    }
+                }else {
+                    pd.cancel();
+                    Toast.makeText(context, "Error 1: ", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<loadNilai> call, Throwable t) {
+                Toast.makeText(context, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void postNilai(){

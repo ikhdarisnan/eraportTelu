@@ -1,5 +1,7 @@
 package com.telu.eraporttelu.response;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.telu.eraporttelu.model.modelDataKelas;
 import com.telu.eraporttelu.model.modelNilai;
@@ -15,12 +17,16 @@ public class loadNilai {
     private String Message;
 
     @SerializedName("data")
-    private ArrayList<modelNilai> Data;
+    private String Data;
 
-    public loadNilai(String status, String message, ArrayList<modelNilai> data) {
+    @SerializedName("bundledata")
+    private ArrayList<modelNilai> BundleData;
+
+    public loadNilai(String status, String message,@Nullable String data, ArrayList<modelNilai> bundleData) {
         Status = status;
         Message = message;
         Data = data;
+        BundleData = bundleData;
     }
 
 
@@ -40,11 +46,19 @@ public class loadNilai {
         Message = message;
     }
 
-    public ArrayList<modelNilai> getData() {
+    public String getData() {
         return Data;
     }
 
-    public void setData(ArrayList<modelNilai> data) {
+    public void setData(String data) {
         Data = data;
+    }
+
+    public ArrayList<modelNilai> getBundleData() {
+        return BundleData;
+    }
+
+    public void setBundleData(ArrayList<modelNilai> bundleData) {
+        BundleData = bundleData;
     }
 }

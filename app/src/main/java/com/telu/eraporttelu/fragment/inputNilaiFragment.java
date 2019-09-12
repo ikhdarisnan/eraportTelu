@@ -1,8 +1,10 @@
 package com.telu.eraporttelu.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import com.telu.eraporttelu.model.modelDataTA;
 import com.telu.eraporttelu.model.modelSiswa;
 import com.telu.eraporttelu.response.loadKelas;
 import com.telu.eraporttelu.response.loadMapel;
+import com.telu.eraporttelu.response.loadSiswa;
 import com.telu.eraporttelu.response.loadTA;
 import com.telu.eraporttelu.service.APIClient;
 import com.telu.eraporttelu.service.APIInterface;
@@ -43,7 +47,7 @@ public class inputNilaiFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
     private siswaAdapter siswaAdapter;
-
+    private RecyclerView rvDaftarSiswa;
     private Spinner spinnerKelas, spinnerTA, spinnerSemester, spinnerMapel;
     private ProgressDialog pd;
 
@@ -53,8 +57,8 @@ public class inputNilaiFragment extends Fragment {
     private ArrayList<modelDataMapel> listDataMapel;
     private ArrayList<modelDataKelas> listDataKelas;
     private ArrayList<modelDataTA> listDataTa;
+    private ArrayList<modelSiswa> listDataSiswa;
 
-    private ArrayList<modelSiswa> listSiswa;
     public String kelasSelected, TASelected, semesterSelected, mapelSelected, NIP;
 
     APIInterface mApiInterface;
@@ -81,10 +85,9 @@ public class inputNilaiFragment extends Fragment {
         listDataKelas = new ArrayList<>();
         listDataMapel = new ArrayList<>();
         listDataTa = new ArrayList<>();
+        listDataSiswa = new ArrayList<>();
 
         arraySpinnerSemester = new ArrayList<>();
-
-        listSiswa = new ArrayList<>();
     }
 
     @Nullable
@@ -95,7 +98,7 @@ public class inputNilaiFragment extends Fragment {
         spinnerTA = inputNilaiView.findViewById(R.id.spinner_input_pilihTA);
         spinnerSemester = inputNilaiView.findViewById(R.id.spinner_input_pilihSemester);
         spinnerMapel = inputNilaiView.findViewById(R.id.spinner_input_pilihMapel);
-        RecyclerView rvDaftarSiswa = inputNilaiView.findViewById(R.id.rv_input_daftarSiswa);
+        rvDaftarSiswa = inputNilaiView.findViewById(R.id.rv_input_daftarSiswa);
 
         loadDaftarKelas(NIP);
         loadDaftarMapel(NIP);
@@ -104,30 +107,9 @@ public class inputNilaiFragment extends Fragment {
         //Spinner Semester
         arraySpinnerSemester.add("GANJIL");
         arraySpinnerSemester.add("GENAP");
-
         spinnerSemesterAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arraySpinnerSemester);
         spinnerSemesterAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
         spinnerSemester.setAdapter(spinnerSemesterAdapter);
-        String semesterSelected = spinnerSemester.getSelectedItem().toString();
-
-
-
-        modelSiswa s1 = new modelSiswa("0128562737","Johny Alexander");
-        modelSiswa s2 = new modelSiswa("0128562738","Anita Dwi Anira");
-        modelSiswa s3 = new modelSiswa("0128562740","Tobing Smith");
-        modelSiswa s4 = new modelSiswa("0128562737","Johny Alexander");
-        modelSiswa s5 = new modelSiswa("0128562738","Anita Dwi Anira");
-        modelSiswa s6 = new modelSiswa("0128562740","Tobing Smith");
-        modelSiswa s7 = new modelSiswa("0128562737","Johny Alexander");
-        modelSiswa s8 = new modelSiswa("0128562738","Anita Dwi Anira");
-        modelSiswa s9 = new modelSiswa("0128562740","Tobing Smith");
-
-        listSiswa.add(s1);listSiswa.add(s2);listSiswa.add(s3);listSiswa.add(s4);listSiswa.add(s5);listSiswa.add(s6);listSiswa.add(s7);listSiswa.add(s8);listSiswa.add(s9);
-
-        siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected,mapelSelected,mContext,listSiswa);
-        siswaAdapter.notifyDataSetChanged();
-        rvDaftarSiswa.setAdapter(siswaAdapter);
-        rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
 
         return inputNilaiView;
     }
@@ -160,7 +142,8 @@ public class inputNilaiFragment extends Fragment {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     kelasSelected = parent.getItemAtPosition(position).toString();
-                                    siswaAdapter.notifyItemChanged(position);
+                                    loadDaftarSiswaKelas(kelasSelected);
+                                    Log.d(TAG, "onItemSelected: Item changed " + kelasSelected);
                                 }
 
                                 @Override
@@ -210,7 +193,6 @@ public class inputNilaiFragment extends Fragment {
                             spinnerMapelAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempMapel);
                             spinnerMapelAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
                             spinnerMapel.setAdapter(spinnerMapelAdapter);
-                            String mapelSelected = spinnerMapel.getSelectedItem().toString();
                         }
                     }else{
                         pd.cancel();
@@ -255,19 +237,6 @@ public class inputNilaiFragment extends Fragment {
                             spinnerTAAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempTa);
                             spinnerTAAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
                             spinnerTA.setAdapter(spinnerTAAdapter);
-//                            TASelected = spinnerTA.getSelectedItem().toString();
-//                            spinnerTA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                @Override
-//                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                                    TASelected = parent.getItemAtPosition(position).toString();
-//                                    siswaAdapter.notifyItemChanged(position);
-//                                }
-//
-//                                @Override
-//                                public void onNothingSelected(AdapterView<?> parent) {
-//
-//                                }
-//                            });
                         }
                     }else {
                         pd.cancel();
@@ -288,10 +257,47 @@ public class inputNilaiFragment extends Fragment {
     }
 
     private void loadDaftarSiswaKelas(String kelas){
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        Call<loadSiswa> getSiswaCall = mApiInterface.getSiswa(kelas);
+        getSiswaCall.enqueue(new Callback<loadSiswa>() {
+            @Override
+            public void onResponse(Call<loadSiswa> call, Response<loadSiswa> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getData().size()>0){
+                        for (int i=0; i<response.body().getData().size();i++){
+                            listDataSiswa.add(response.body().getData().get(i));
 
+                            mapelSelected = spinnerMapel.getSelectedItem().toString();
+                            kelasSelected = spinnerKelas.getSelectedItem().toString();
+                            semesterSelected = spinnerSemester.getSelectedItem().toString();
+                            TASelected = spinnerTA.getSelectedItem().toString();
+
+                            siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected,mapelSelected,mContext,listDataSiswa);
+                            siswaAdapter.notifyDataSetChanged();
+                            rvDaftarSiswa.setAdapter(siswaAdapter);
+                            rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
+
+                            pd.cancel();
+                        }
+                        listDataSiswa = new ArrayList<>();
+                    }else {
+                        pd.cancel();
+                        Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    pd.cancel();
+                    Toast.makeText(mContext, "Error 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<loadSiswa> call, Throwable t) {
+                pd.cancel();
+                Toast.makeText(mContext, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-
 
     @Override
     public void onAttach(Context context) {
