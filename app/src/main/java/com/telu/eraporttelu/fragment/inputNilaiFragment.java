@@ -110,6 +110,24 @@ public class inputNilaiFragment extends Fragment {
         spinnerSemesterAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arraySpinnerSemester);
         spinnerSemesterAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
         spinnerSemester.setAdapter(spinnerSemesterAdapter);
+        spinnerSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                semesterSelected = parent.getItemAtPosition(position).toString();
+                loadDaftarSiswaKelas(kelasSelected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected, mapelSelected, mContext,listDataSiswa,listDataKelas,listDataMapel);
+        siswaAdapter.notifyDataSetChanged();
+        rvDaftarSiswa.setAdapter(siswaAdapter);
+        rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
 
         return inputNilaiView;
     }
@@ -193,6 +211,20 @@ public class inputNilaiFragment extends Fragment {
                             spinnerMapelAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempMapel);
                             spinnerMapelAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
                             spinnerMapel.setAdapter(spinnerMapelAdapter);
+                            spinnerMapel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    mapelSelected = parent.getItemAtPosition(position).toString();
+                                    loadDaftarSiswaKelas(kelasSelected);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
                         }
                     }else{
                         pd.cancel();
@@ -237,6 +269,18 @@ public class inputNilaiFragment extends Fragment {
                             spinnerTAAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempTa);
                             spinnerTAAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
                             spinnerTA.setAdapter(spinnerTAAdapter);
+                            spinnerTA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    TASelected = parent.getItemAtPosition(position).toString();
+                                    loadDaftarSiswaKelas(kelasSelected);
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
                         }
                     }else {
                         pd.cancel();
@@ -268,12 +312,12 @@ public class inputNilaiFragment extends Fragment {
                         for (int i=0; i<response.body().getData().size();i++){
                             listDataSiswa.add(response.body().getData().get(i));
 
-                            mapelSelected = spinnerMapel.getSelectedItem().toString();
-                            kelasSelected = spinnerKelas.getSelectedItem().toString();
-                            semesterSelected = spinnerSemester.getSelectedItem().toString();
-                            TASelected = spinnerTA.getSelectedItem().toString();
+//                            mapelSelected = spinnerMapel.getSelectedItem().toString();
+//                            kelasSelected = spinnerKelas.getSelectedItem().toString();
+//                            semesterSelected = spinnerSemester.getSelectedItem().toString();
+//                            TASelected = spinnerTA.getSelectedItem().toString();
 
-                            siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected,mapelSelected,mContext,listDataSiswa);
+                            siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected, mapelSelected, mContext,listDataSiswa,listDataKelas,listDataMapel);
                             siswaAdapter.notifyDataSetChanged();
                             rvDaftarSiswa.setAdapter(siswaAdapter);
                             rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
@@ -287,14 +331,14 @@ public class inputNilaiFragment extends Fragment {
                     }
                 }else {
                     pd.cancel();
-                    Toast.makeText(mContext, "Error 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Gagal. Data tidak sesuai", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadSiswa> call, Throwable t) {
                 pd.cancel();
-                Toast.makeText(mContext, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

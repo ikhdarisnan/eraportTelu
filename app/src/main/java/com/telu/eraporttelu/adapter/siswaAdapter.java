@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.telu.eraporttelu.R;
+import com.telu.eraporttelu.model.modelDataKelas;
+import com.telu.eraporttelu.model.modelDataMapel;
 import com.telu.eraporttelu.model.modelNilai;
 import com.telu.eraporttelu.model.modelSiswa;
 import com.telu.eraporttelu.response.loadNilai;
@@ -29,6 +33,7 @@ import com.telu.eraporttelu.service.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,30 +42,37 @@ import retrofit2.Response;
 public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> {
 
     private static final String TAG = "siswaAdapter";
-    private String kelas, TA, semester, mapel, NIPGuru,NISSiswa;
-    private TextView namaSiswaDialog,kelasSiswaDialog, TASiswaDialog, SemesterSiswaDialog, mapelSiswaDialog ;
+    private String kelas, TA, semester, mapel, NIPGuru, NISSiswa;
+    private String idMapel;
     private Context context;
     private ProgressDialog pd;
-    private EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog,nilaiUH3Dialog,nilaiUH4Dialog,nilaiUH5Dialog;
-    private ArrayList<modelSiswa> listSiswa, listSiswaFull;
+    private EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog, nilaiUH3Dialog, nilaiUH4Dialog, nilaiUH5Dialog;
+    private ArrayList<modelSiswa> listSiswa;
+    private ArrayList<modelDataKelas> listKelas;
+    private ArrayList<modelDataMapel> listMapel;
 
-    APIInterface mApiInterface;
+    private APIInterface mApiInterface;
 
-    public siswaAdapter(String kelas, String TA, String semester, String mapel, Context context, ArrayList<modelSiswa> listSiswa) {
+    public siswaAdapter(String kelas, String TA, String semester, String mapel, Context context, ArrayList<modelSiswa> listSiswa, ArrayList<modelDataKelas> listKelas, ArrayList<modelDataMapel> listMapel) {
         this.kelas = kelas;
         this.TA = TA;
         this.semester = semester;
         this.mapel = mapel;
         this.context = context;
         this.listSiswa = listSiswa;
-        listSiswaFull = new ArrayList<>(listSiswa);
+        this.listKelas = listKelas;
+        this.listMapel = listMapel;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_list_siswa,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_list_siswa, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
+
+        SharedPreferences preferences = Objects.requireNonNull(context).getSharedPreferences("GURU:DATADIRI", Context.MODE_PRIVATE);
+        NIPGuru = preferences.getString("NIPGuru", null);
+
         return holder;
     }
 
@@ -70,13 +82,13 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nama = listSiswa.get(position).getNamaSiswa();
-                openInputNilaiDialog(nama);
+//                String nama = listSiswa.get(position).getNamaSiswa();
+                openInputNilaiDialog(position);
             }
         });
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView namaSiswa;
         ImageView btnEdit;
 
@@ -92,9 +104,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         return listSiswa.size();
     }
 
-    private void openInputNilaiDialog(String nama){
-        Button btnOkDilaog,btnCancelDialog;
+    private void openInputNilaiDialog(int pos) {
+        Button btnOkDilaog, btnCancelDialog;
+        TextView namaSiswaDialog, kelasSiswaDialog, TASiswaDialog, SemesterSiswaDialog, mapelSiswaDialog;
+
         pd = new ProgressDialog(context);
+
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
         final Dialog inputNilai = new Dialog(context);
@@ -117,17 +132,25 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         btnOkDilaog = inputNilai.findViewById(R.id.btn_dialog_ok);
         btnCancelDialog = inputNilai.findViewById(R.id.btn_dialog_cancel);
 
-        namaSiswaDialog.setText(nama);
+        namaSiswaDialog.setText(listSiswa.get(pos).getNamaSiswa());
         kelasSiswaDialog.setText(kelas);
         TASiswaDialog.setText(TA);
         SemesterSiswaDialog.setText(semester);
         mapelSiswaDialog.setText(mapel);
-        NIPGuru = "11223344";
-        NISSiswa = "22";
-        mapel = "3";
-        semester = "GANJIL";
 
-        getNilai(NIPGuru,NISSiswa,mapel);
+        for (int i = 0; i < listSiswa.size(); i++) {
+            if (listSiswa.get(i).getNamaSiswa().equals(listSiswa.get(pos).getNamaSiswa())) {
+                NISSiswa = listSiswa.get(i).getNISSiswa();
+            }
+        }
+
+        for (int i = 0; i < listMapel.size(); i++) {
+            if (listMapel.get(i).getNamaMapel().equals(mapel)) {
+                idMapel = listMapel.get(i).getIdMapel();
+            }
+        }
+
+        getNilai(NIPGuru, NISSiswa, idMapel);
 
         btnOkDilaog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +172,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                                 inputNilai.dismiss();
                             }
                         })
-                        .setNegativeButton("Tidak",null);
+                        .setNegativeButton("Tidak", null);
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
@@ -159,7 +182,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         inputNilai.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
-    private void validateNilai(){
+    private void validateNilai() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Validasi Input Nilai")
                 .setMessage("Apakah anda yakin data yang diinputkan sudah benar ?")
@@ -174,16 +197,16 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         alertDialog.show();
     }
 
-    private void getNilai(String NIPGuru, String NISSiswa, String idMapel){
+    private void getNilai(String NIPGuru, String NISSiswa, String idMapel) {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
-        Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru,NISSiswa,idMapel);
+        Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru, NISSiswa, idMapel);
         getNilaiPlaceHolderCall.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
-                if (response.isSuccessful()){
-                    if (response.body().getBundleData().size()>0){
-                        for (int i = 0; i<response.body().getBundleData().size();i++){
+                if (response.isSuccessful()) {
+                    if (response.body().getBundleData().size() > 0) {
+                        for (int i = 0; i < response.body().getBundleData().size(); i++) {
                             nilaiUASDialog.setText(response.body().getBundleData().get(i).getUAS());
                             nilaiUTSDialog.setText(response.body().getBundleData().get(i).getUTS());
                             nilaiUH1Dialog.setText(response.body().getBundleData().get(i).getUH1());
@@ -193,10 +216,10 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                             nilaiUH5Dialog.setText(response.body().getBundleData().get(i).getUH5());
                             pd.cancel();
                         }
-                    }else {
+                    } else {
                         pd.cancel();
                     }
-                }else {
+                } else {
                     pd.cancel();
                     Toast.makeText(context, "Error 1: ", Toast.LENGTH_SHORT).show();
                 }
@@ -205,15 +228,15 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
-                Toast.makeText(context, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error 2: " + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void postNilai(){
+    private void postNilai() {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
-        String uts,uas,uh1,uh2,uh3,uh4,uh5;
+        String uts, uas, uh1, uh2, uh3, uh4, uh5;
         uts = nilaiUTSDialog.getText().toString();
         uas = nilaiUASDialog.getText().toString();
         uh1 = nilaiUH1Dialog.getText().toString();
@@ -221,23 +244,24 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh3 = nilaiUH3Dialog.getText().toString();
         uh4 = nilaiUH4Dialog.getText().toString();
         uh5 = nilaiUH5Dialog.getText().toString();
-        final modelNilai thisNilai = new modelNilai(uts,uas,uh1,uh2,uh3,uh4,uh5,NISSiswa,NIPGuru,mapel,semester);
+        final modelNilai thisNilai = new modelNilai(uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
         Call<loadNilai> postNilaiSiswa = mApiInterface.postNilai(thisNilai);
         postNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     pd.cancel();
-                    Toast.makeText(context, "message: "+response.body().getMessage() , Toast.LENGTH_SHORT).show();
-                }else {
+                    Toast.makeText(context, "message: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
                     pd.cancel();
-                    Toast.makeText(context, "Error 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Error 1: ", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
                 pd.cancel();
-                Toast.makeText(context, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error 2: " + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

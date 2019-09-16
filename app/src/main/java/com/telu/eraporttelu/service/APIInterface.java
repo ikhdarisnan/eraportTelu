@@ -11,8 +11,11 @@ import com.telu.eraporttelu.response.loadTA;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -51,4 +54,21 @@ public interface APIInterface {
 
     @GET("Siswa/{NISSiswa}")
     Call<loadSiswa> getDataSiswa(@Path("NISSiswa")String NISSiswa);
+
+    @FormUrlEncoded
+    @PUT("Nilai")
+    Call<loadNilai> putNilai(
+            @Field("idNilai") String idNilai,
+            @Field("UAS") String uas,
+            @Field("UTS") String uts,
+            @Field("UH1") String uh1,
+            @Field("UH2") String uh2,
+            @Field("UH3") String uh3,
+            @Field("UH4") String uh4,
+            @Field("UH5") String uh5,
+            @Field("NISSiswa") String nisSiswa,
+            @Field("NIPGuru") String NIPGuru,
+            @Field("idMapel") String idMapel,
+            @Field("semester") String semester
+    );
 }
