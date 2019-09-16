@@ -52,11 +52,9 @@ public class lihatProfilGuruFragment extends Fragment {
         super.onCreate(savedInstanceState);
         pd = new ProgressDialog(context);
 
-        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("GURU:DATADIRI", Context.MODE_PRIVATE);
-        NIP = preferences.getString("NIPGuru", null);
+        SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("DATALOGIN", Context.MODE_PRIVATE);
+        NIP = preferences.getString("USERNAME", null);
 
-        Bundle bundle = new Bundle();
-        bundle.getSerializable("DataDiriGuru");
         listDataDiriGuru = new ArrayList<>();
         
         mApiInterface = APIClient.getClient().create(APIInterface.class);

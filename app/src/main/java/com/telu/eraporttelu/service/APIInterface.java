@@ -3,6 +3,7 @@ package com.telu.eraporttelu.service;
 import com.telu.eraporttelu.model.modelNilai;
 import com.telu.eraporttelu.response.loadGuru;
 import com.telu.eraporttelu.response.loadKelas;
+import com.telu.eraporttelu.response.loadLogin;
 import com.telu.eraporttelu.response.loadMapel;
 import com.telu.eraporttelu.response.loadNilai;
 import com.telu.eraporttelu.response.loadSiswa;
@@ -41,4 +42,13 @@ public interface APIInterface {
 
     @GET("Siswa/kelas/{namaKelas}")
     Call<loadSiswa> getSiswa(@Path("namaKelas")String namaKelas);
+
+    @GET("Login")
+    Call<loadLogin> onCallLogin(
+            @Query("username") String username,
+            @Query("password") String password
+    );
+
+    @GET("Siswa/{NISSiswa}")
+    Call<loadSiswa> getDataSiswa(@Path("NISSiswa")String NISSiswa);
 }

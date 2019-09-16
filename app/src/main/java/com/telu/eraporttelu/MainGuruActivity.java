@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -54,6 +55,8 @@ public class MainGuruActivity extends AppCompatActivity {
 
     private ArrayList<modelDataGuru> listDataDiriGuru;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     lihatProfilGuruFragment lihatProfilGuruFragment;
     pengaturanFragment pengaturanFragment;
     inputNilaiFragment inputNilaiFragment;
@@ -70,7 +73,8 @@ public class MainGuruActivity extends AppCompatActivity {
         openProfilGuruFragment();
 
         mApiInterface = APIClient.getClient().create(APIInterface.class);
-        onLoadProfileGuru("11223344");
+        String NIP = getSharedPreferences("DATALOGIN",MODE_PRIVATE).getString("USERNAME",null);
+        onLoadProfileGuru(NIP);
 
         listDataDiriGuru = new ArrayList<>();
 
@@ -214,7 +218,21 @@ public class MainGuruActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Klik sekali lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     private void logout(){

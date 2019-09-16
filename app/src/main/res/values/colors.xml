@@ -5,4 +5,7 @@
     <color name="colorSecondary">#eb372a</color>
     <color name="colorSecondaryDark">#9c0f05</color>
     <color name="colorAccent">#5e626e</color>
+    <color name="greenSuccess">#a0cc86</color>
+    <color name="redFailed">#ce6b6b</color>
+    <color name="lightGrey">#A7A7A7</color>
 </resources>
