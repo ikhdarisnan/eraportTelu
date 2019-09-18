@@ -1,217 +1,321 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TableLayout
         android:id="@+id/table_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:stretchColumns="1"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
+
         <TableRow>
-            <TextView
-                android:textStyle="bold"
-                android:padding="5dip"
-                android:text="@string/no" />
 
             <TextView
-                android:textStyle="bold"
+                android:padding="5dip"
+                android:text="@string/no"
+                android:textStyle="bold" />
+
+            <TextView
                 android:gravity="center"
                 android:padding="5dip"
-                android:text="@string/mata_pelajaran" />
+                android:text="@string/mata_pelajaran"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
                 android:padding="5dip"
-                android:text="@string/kkm" />
+                android:text="@string/kkm"
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
                 android:padding="5dip"
-                android:text="@string/nilai" />
+                android:text="@string/nilai"
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
                 android:padding="5dip"
-                android:text="@string/deskripsi" />
+                android:text="@string/deskripsi"
+                android:textAlignment="center"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="1." />
+                android:text="1."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Pendidikan Agama" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmAgama"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiAgama"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskAgama"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="2." />
+                android:text="2."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Pendidikan Kewarganegaraan" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmPkn"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiPkn"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskPkn"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="3." />
+                android:text="3."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Bahasa Indonesia" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmBindo"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiBindo"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskBindo"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
-            <TextView
-                android:padding="3dip"
-                android:text="4." />
 
             <TextView
+                android:padding="3dip"
+                android:text="4."
+                android:textAlignment="center" />
+
+            <TextView
+
                 android:padding="3dip"
                 android:text="Bahasa Ingrris" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmBing"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiBing"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskBing"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="5." />
+                android:text="5."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Matematika" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmMtk"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiMtk"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskMtk"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="6." />
+                android:text="6."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Ilmu Pengetahuan Alam" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmIpa"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiIpa"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskIpa"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="7." />
+                android:text="7."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Ilmu Pengetahuan Sosial" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmIps"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiIps"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskIps"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
-            <TextView
-                android:padding="3dip"
-                android:text="8." />
 
             <TextView
                 android:padding="3dip"
-                android:text="Seni Budaya" />
+                android:text="8."
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:padding="3dip"
+                android:text="Seni Budaya dan Prakarya" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmSenbud"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiSenbud"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/text_table_deskSenbud"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
-                android:text="9." />
+                android:text="9."
+                android:textAlignment="center" />
 
             <TextView
                 android:padding="3dip"
                 android:text="Penjas Orkes" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmPenjas"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiPenjas"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskPenjas"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
@@ -219,57 +323,71 @@
             <TextView
                 android:padding="3dip"
                 android:text="Pilihan"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
 
             <TextView
                 android:padding="3dip"
-                android:text="A. Keterampilan"/>
+                android:text="A. Keterampilan" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmKeterampilan"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_NilaiKeterampilan"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskKeterampilan"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
 
             <TextView
                 android:padding="3dip"
-                android:text="B. TIK"/>
+                android:text="B. TIK" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_kkmTIK"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_nilaiTIK"
+                android:padding="3dip"
+                android:text="@string/dash" />
 
             <TextView
-                android:padding="3dip" />
+                android:id="@+id/text_table_deskTIK"
+                android:padding="3dip"
+                android:text="@string/dash"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
@@ -277,54 +395,47 @@
             <TextView
                 android:padding="3dip"
                 android:text="Muatan Lokal"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
 
             <TextView
                 android:padding="3dip"
-                android:text="......."/>
+                android:text="......." />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="3dip"
                 android:text="" />
 
             <TextView
                 android:padding="3dip"
-                android:text="......."/>
+                android:text="......." />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
 
-            <TextView
-                android:padding="3dip" />
+            <TextView android:padding="3dip" />
         </TableRow>
     </TableLayout>
 
@@ -333,35 +444,41 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:stretchColumns="0"
-        app:layout_constraintTop_toBottomOf="@id/table_1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/table_1">
+
         <TableRow>
 
             <TextView
-                android:textStyle="bold"
                 android:gravity="center"
                 android:padding="3dip"
-                android:text="Jumlah" />
+                android:text="Jumlah"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
+                android:textAlignment="center"
+                android:id="@+id/text_table_jmlhNilai"
                 android:padding="3dip"
-                android:text="000000" />
+                android:text="@string/dash"
+                android:textStyle="bold" />
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:textStyle="bold"
                 android:gravity="center"
                 android:padding="3dip"
-                android:text="Rata- Rata" />
+                android:text="Rata- Rata"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
-                android:padding="3dip" />
+                android:text="@string/dash"
+                android:textAlignment="center"
+                android:id="@+id/text_table_rata2"
+                android:padding="3dip"
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -369,15 +486,18 @@
 
             <TextView
                 android:layout_column="0"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:padding="3dip"
-                android:text="Peringkat Kelas" />
+                android:text="Peringkat Kelas"
+                android:textStyle="bold" />
 
             <TextView
+                android:textAlignment="center"
+                android:text="@string/dash"
+                android:id="@+id/text_table_peringkat"
                 android:layout_column="0"
-                android:textStyle="bold"
-                android:padding="3dip" />
+                android:padding="3dip"
+                android:textStyle="bold" />
 
         </TableRow>
 

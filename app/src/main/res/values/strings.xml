@@ -66,10 +66,11 @@
     <string name="alamat_sekolah">Jl. Terusan Buah Batu No.320, Cipagalo, Kec. Bojongsoang, Bandung, Jawa Barat</string>
     <string name="no">No.</string>
     <string name="mata_pelajaran">Mata Pelajaran</string>
-    <string name="kkm">KKM</string>
-    <string name="nilai">Nilai</string>
-    <string name="deskripsi">Deskripsi</string>
+    <string name="kkm">  KKM  </string>
+    <string name="nilai">  Nilai  </string>
+    <string name="deskripsi">   Deskripsi   </string>
     <string name="berhasil">Berhasil</string>
     <string name="gagal">Gagal</string>
     <string name="tutup">Tutup</string>
+    <string name="dash">-</string>
 </resources>

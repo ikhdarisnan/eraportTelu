@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.telu.eraporttelu.fragment.lihatNilaiFragment;
 import com.telu.eraporttelu.fragment.lihatProfilSiswaFragment;
 import com.telu.eraporttelu.fragment.pengaturanFragment;
 import com.telu.eraporttelu.model.modelSiswa;
@@ -58,6 +59,7 @@ public class MainUserActivity extends AppCompatActivity {
     APIInterface mApiInterface;
     pengaturanFragment pengaturanFragment;
     lihatProfilSiswaFragment lihatProfilSiswaFragment;
+    lihatNilaiFragment lihatNilaiFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,12 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openLihatAkunFragment();
+            }
+        });
+        menuLihatNilai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLihatNilai();
             }
         });
     }
@@ -153,6 +161,12 @@ public class MainUserActivity extends AppCompatActivity {
     public void openLihatAkunFragment(){
         lihatProfilSiswaFragment = lihatProfilSiswaFragment.newInstance(MainUserActivity.this);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout__frameLayout, lihatProfilSiswaFragment,"Lihat Profil Fragment").commit();
+        leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
+    }
+
+    public void openLihatNilai(){
+        lihatNilaiFragment = lihatNilaiFragment.newInstance(MainUserActivity.this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout__frameLayout, lihatNilaiFragment,"Lihat Nilai").commit();
         leftDrawerLayout.closeDrawer(Gravity.LEFT,true);
     }
 

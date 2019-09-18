@@ -1,5 +1,6 @@
 package com.telu.eraporttelu.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -9,16 +10,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +31,6 @@ import com.telu.eraporttelu.service.APIClient;
 import com.telu.eraporttelu.service.APIInterface;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -44,23 +42,23 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     private static final String TAG = "siswaAdapter";
     private String kelas, TA, semester, mapel, NIPGuru, NISSiswa;
     private String idMapel;
+    private int onResultUpdate;
     private Context context;
-    private ProgressDialog pd;
+    private ProgressBar pd;
     private EditText nilaiUASDialog, nilaiUTSDialog, nilaiUH1Dialog, nilaiUH2Dialog, nilaiUH3Dialog, nilaiUH4Dialog, nilaiUH5Dialog;
     private ArrayList<modelSiswa> listSiswa;
-    private ArrayList<modelDataKelas> listKelas;
     private ArrayList<modelDataMapel> listMapel;
+    private ArrayList<modelNilai> listNilai;
 
     private APIInterface mApiInterface;
 
-    public siswaAdapter(String kelas, String TA, String semester, String mapel, Context context, ArrayList<modelSiswa> listSiswa, ArrayList<modelDataKelas> listKelas, ArrayList<modelDataMapel> listMapel) {
+    public siswaAdapter(String kelas, String TA, String semester, String mapel, Context context, ArrayList<modelSiswa> listSiswa, ArrayList<modelDataMapel> listMapel) {
         this.kelas = kelas;
         this.TA = TA;
         this.semester = semester;
         this.mapel = mapel;
         this.context = context;
         this.listSiswa = listSiswa;
-        this.listKelas = listKelas;
         this.listMapel = listMapel;
     }
 
@@ -73,11 +71,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         SharedPreferences preferences = Objects.requireNonNull(context).getSharedPreferences("GURU:DATADIRI", Context.MODE_PRIVATE);
         NIPGuru = preferences.getString("NIPGuru", null);
 
+        listNilai = new ArrayList<>();
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.namaSiswa.setText(listSiswa.get(position).getNamaSiswa());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +107,8 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         Button btnOkDilaog, btnCancelDialog;
         TextView namaSiswaDialog, kelasSiswaDialog, TASiswaDialog, SemesterSiswaDialog, mapelSiswaDialog;
 
-        pd = new ProgressDialog(context);
+        onResultUpdate = 0;
+
 
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
@@ -117,6 +117,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         inputNilai.setCanceledOnTouchOutside(false);
 
         inputNilai.setContentView(R.layout.dialog_input_nilai);
+        pd = inputNilai.findViewById(R.id.pb_inputNilai_dialog);
         namaSiswaDialog = inputNilai.findViewById(R.id.text_dialog_namaSiswa);
         kelasSiswaDialog = inputNilai.findViewById(R.id.text_dialog_kelasSiswa);
         TASiswaDialog = inputNilai.findViewById(R.id.text_dialog_TASiswa);
@@ -155,8 +156,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         btnOkDilaog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "Button Ok Test Working", Toast.LENGTH_SHORT).show();
-                validateNilai();
+                if (onResultUpdate==1){
+                    validateUpdateNilai();
+                }else {
+                    validateNilai();
+                }
+
             }
         });
 
@@ -197,9 +202,24 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         alertDialog.show();
     }
 
+    private void validateUpdateNilai() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Validasi Input Nilai")
+                .setMessage("Apakah anda yakin data yang diinputkan sudah benar ?")
+                .setNegativeButton("Belum", null)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateNilai();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     private void getNilai(String NIPGuru, String NISSiswa, String idMapel) {
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        onResultUpdate = 1;
+        pd.setIndeterminate(true);
         Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru, NISSiswa, idMapel);
         getNilaiPlaceHolderCall.enqueue(new Callback<loadNilai>() {
             @Override
@@ -207,6 +227,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                 if (response.isSuccessful()) {
                     if (response.body().getBundleData().size() > 0) {
                         for (int i = 0; i < response.body().getBundleData().size(); i++) {
+                            listNilai.add(response.body().getBundleData().get(i));
                             nilaiUASDialog.setText(response.body().getBundleData().get(i).getUAS());
                             nilaiUTSDialog.setText(response.body().getBundleData().get(i).getUTS());
                             nilaiUH1Dialog.setText(response.body().getBundleData().get(i).getUH1());
@@ -214,28 +235,27 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                             nilaiUH3Dialog.setText(response.body().getBundleData().get(i).getUH3());
                             nilaiUH4Dialog.setText(response.body().getBundleData().get(i).getUH4());
                             nilaiUH5Dialog.setText(response.body().getBundleData().get(i).getUH5());
-                            pd.cancel();
+                            pd.setIndeterminate(false);
                         }
                     } else {
-                        pd.cancel();
+                        pd.setIndeterminate(false);
                     }
                 } else {
-                    pd.cancel();
-                    Toast.makeText(context, "Error 1: ", Toast.LENGTH_SHORT).show();
+                    pd.setIndeterminate(false);
+                    Toast.makeText(context, "Gagal: Nilai sebelumnya tidak berhasil ditampung", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
-                Toast.makeText(context, "Error 2: " + t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void postNilai() {
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         String uts, uas, uh1, uh2, uh3, uh4, uh5;
         uts = nilaiUTSDialog.getText().toString();
         uas = nilaiUASDialog.getText().toString();
@@ -244,26 +264,72 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh3 = nilaiUH3Dialog.getText().toString();
         uh4 = nilaiUH4Dialog.getText().toString();
         uh5 = nilaiUH5Dialog.getText().toString();
-        final modelNilai thisNilai = new modelNilai(uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
+        final modelNilai thisNilai = new modelNilai(null,uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
         Call<loadNilai> postNilaiSiswa = mApiInterface.postNilai(thisNilai);
         postNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
-                    pd.cancel();
-                    Toast.makeText(context, "message: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    for (int i=0; i<response.body().getBundleData().size();i++){
+                        Toast.makeText(context, "Data Nilai " +response.body().getBundleData().get(i).getNISSiswa()+ " Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                    }
+
+                    pd.setIndeterminate(false);
                 } else {
-                    pd.cancel();
-                    Toast.makeText(context, "Error 1: ", Toast.LENGTH_SHORT).show();
+                    pd.setIndeterminate(false);
+                    Toast.makeText(context, "Gagal: Penambahan Nilai tidak berhasil", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
-                pd.cancel();
-                Toast.makeText(context, "Error 2: " + t.toString(), Toast.LENGTH_SHORT).show();
+                pd.setIndeterminate(false);
+                Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    private void updateNilai(){
+        pd.setIndeterminate(true);
+        String idNilai, uts, uas, uh1, uh2, uh3, uh4, uh5;
+
+        if (listNilai.size()>0){
+            for (int i=0; i<listNilai.size();i++){
+                idNilai = listNilai.get(i).getIdNilai();
+            }
+        }
+        idNilai = listNilai.get(0).getIdNilai();
+        uts = nilaiUTSDialog.getText().toString();
+        uas = nilaiUASDialog.getText().toString();
+        uh1 = nilaiUH1Dialog.getText().toString();
+        uh2 = nilaiUH2Dialog.getText().toString();
+        uh3 = nilaiUH3Dialog.getText().toString();
+        uh4 = nilaiUH4Dialog.getText().toString();
+        uh5 = nilaiUH5Dialog.getText().toString();
+
+//        final modelNilai thisNilaiUpd = new modelNilai(idNilai ,uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
+        Call<loadNilai> putNilaiSiswa = mApiInterface.putNilai(idNilai,uas,uts,uh1,uh2,uh3,uh4,uh5,NISSiswa, NIPGuru, idMapel, semester);
+        putNilaiSiswa.enqueue(new Callback<loadNilai>() {
+            @Override
+            public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
+                if (response.isSuccessful()){
+                    for (int i=0; i<response.body().getBundleData().size();i++){
+                        Toast.makeText(context, "Data Nilai " +response.body().getBundleData().get(i).getNISSiswa()+ " Berhasil diperbarui", Toast.LENGTH_SHORT).show();
+                    }
+                    pd.setIndeterminate(false);
+                }
+                else {
+                    Toast.makeText(context, "Gagal: Penambahan Nilai tidak berhasil", Toast.LENGTH_SHORT).show();
+                    pd.setIndeterminate(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<loadNilai> call, Throwable t) {
+                Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
+                pd.setIndeterminate(false);
+            }
+        });
     }
 }

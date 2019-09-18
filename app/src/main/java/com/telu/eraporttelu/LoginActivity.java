@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView lupaPassword;
     private EditText password;
     private Button btnLogin;
-    private ProgressDialog pd;
+    private ProgressBar pd;
 
     APIInterface mApiInterface;
 
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btn_login_login);
         lupaPassword = findViewById(R.id.text_login_lupaPassword);
-        pd = new ProgressDialog(LoginActivity.this);
+        pd = findViewById(R.id.pb_login);
     }
 
     private void loginAuth(){
@@ -97,19 +98,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoadLogin(final String username, String password){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setVisibility(View.VISIBLE);
+        btnLogin.setVisibility(View.GONE);
         Call<loadLogin> loginCall = mApiInterface.onCallLogin(username, password);
         loginCall.enqueue(new Callback<loadLogin>() {
             @Override
             public void onResponse(Call<loadLogin> call, Response<loadLogin> response) {
                 if (response.isSuccessful()){
                     if (response.body().getMessage().equals("Failed")){
-                        pd.cancel();
+                        btnLogin.setVisibility(View.VISIBLE);
                         popUpLogin("Username / Password yang anda masukkan tidak sesuai");
                         Toast.makeText(LoginActivity.this, "Credential Wrong", Toast.LENGTH_SHORT).show();
                     }else {
-                        pd.cancel();
+                        btnLogin.setVisibility(View.VISIBLE);
+                        pd.setVisibility(View.GONE);
                         for (int i=0; i<response.body().getData().size();i++){
                             getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("USERNAME",response.body().getData().get(i).getUsername()).apply();
                             getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("STATUS",response.body().getData().get(i).getStatusLogin()).apply();
@@ -124,13 +126,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 }else {
-                    pd.cancel();
+                    btnLogin.setVisibility(View.VISIBLE);
+                    pd.setVisibility(View.GONE);
                     popUpLogin("Username / Password yang anda masukkan tidak sesuai");
                 }
             }
 
             @Override
             public void onFailure(Call<loadLogin> call, Throwable t) {
+                btnLogin.setVisibility(View.VISIBLE);
+                pd.setVisibility(View.GONE);
                 Toast.makeText(LoginActivity.this, "Jaringan tidak terhubung. Periksa jaringan anda terlebih dahulu", Toast.LENGTH_SHORT).show();
             }
         });

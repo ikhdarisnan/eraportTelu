@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.telu.eraporttelu.service.APIInterface;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +33,7 @@ public class lihatProfilSiswaFragment extends Fragment {
 
     private static final String TAG = "lihatProfilSiswaFragment";
     private static Context context;
-    private ProgressDialog pd;
+    private ProgressBar pd;
     private TextView namaSiswa, nisSiswa, nisnSiswa, namaPanggilanSiswa, alamatSiswa, ttlSiswa, kontakSiswa, kelasSiswa;
     private TextView namaWaliSiswa, kontakWaliSiswa, namaOrtuSiswa, kontakOrtuSiswa, semester;
     private ArrayList<modelSiswa> listDataDiriSiswa;
@@ -52,7 +54,7 @@ public class lihatProfilSiswaFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listDataDiriSiswa = new ArrayList<>();
-        pd = new ProgressDialog(context);
+
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
         SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("DATALOGIN", Context.MODE_PRIVATE);
@@ -66,6 +68,7 @@ public class lihatProfilSiswaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View lihatProfileView = inflater.inflate(R.layout.fragment_profile_akun_siswa,container,false);
+        pd = lihatProfileView.findViewById(R.id.pb_profilSiswa);
         namaSiswa = lihatProfileView.findViewById(R.id.text_profil_namaSiswa);
         nisSiswa = lihatProfileView.findViewById(R.id.text_profil_nisSiswa);
         nisnSiswa = lihatProfileView.findViewById(R.id.text_profil_nisNasionalSiswa);
@@ -85,8 +88,7 @@ public class lihatProfilSiswaFragment extends Fragment {
     }
 
     private void onLoadProfileGuru(String NIS){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadSiswa> loadSiswaProfileCall = mApiInterface.getDataSiswa(NIS);
         loadSiswaProfileCall.enqueue(new Callback<loadSiswa>() {
             @Override
@@ -94,7 +96,6 @@ public class lihatProfilSiswaFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body().getData().size() > 0){
                         for (int i=0; i<response.body().getData().size(); i++){
-                            pd.cancel();
                             listDataDiriSiswa.add(response.body().getData().get(i));
 
                             namaSiswa.setText(listDataDiriSiswa.get(i).getNamaSiswa());
@@ -109,22 +110,23 @@ public class lihatProfilSiswaFragment extends Fragment {
                             kontakWaliSiswa.setText(listDataDiriSiswa.get(i).getKontakWaliKelasSiswa());
                             namaOrtuSiswa.setText(listDataDiriSiswa.get(i).getNamaOrtuSiswa());
                             kontakOrtuSiswa.setText(listDataDiriSiswa.get(i).getKontakOrtuSiswa());
+                            pd.setIndeterminate(false);
 
                         }
                     }else {
-                        pd.cancel();
-                        Toast.makeText(context, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        pd.setIndeterminate(false);
+                        Toast.makeText(context, "Gagal: Data Diri tidak berhasil ditampung", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    pd.cancel();
+                    pd.setIndeterminate(false);
                     Toast.makeText(context, "Error 1", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadSiswa> call, Throwable t) {
-                pd.cancel();
-                Toast.makeText(context, "Error: "+ t.toString(), Toast.LENGTH_SHORT).show();
+                pd.setIndeterminate(false);
+                Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
             }
         });
     }

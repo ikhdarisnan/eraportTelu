@@ -71,4 +71,7 @@ public interface APIInterface {
             @Field("idMapel") String idMapel,
             @Field("semester") String semester
     );
+
+    @GET("Nilai/siswa/{NISSiswa}")
+    Call<loadNilai> getNilaiSiswa(@Path("NISSiswa")String NISSiswa);
 }

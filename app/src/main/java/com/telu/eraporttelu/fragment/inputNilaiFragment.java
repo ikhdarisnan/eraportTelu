@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ public class inputNilaiFragment extends Fragment {
     private siswaAdapter siswaAdapter;
     private RecyclerView rvDaftarSiswa;
     private Spinner spinnerKelas, spinnerTA, spinnerSemester, spinnerMapel;
-    private ProgressDialog pd;
+    private ProgressBar pd;
 
     private ArrayAdapter<String> spinnerKelasAdapter, spinnerMapelAdapter, spinnerTAAdapter, spinnerSemesterAdapter;
 
@@ -77,7 +78,6 @@ public class inputNilaiFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiInterface = APIClient.getClient().create(APIInterface.class);
-        pd = new ProgressDialog(mContext);
 
         SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("GURU:DATADIRI", Context.MODE_PRIVATE);
         NIP = preferences.getString("NIPGuru", null);
@@ -99,6 +99,7 @@ public class inputNilaiFragment extends Fragment {
         spinnerSemester = inputNilaiView.findViewById(R.id.spinner_input_pilihSemester);
         spinnerMapel = inputNilaiView.findViewById(R.id.spinner_input_pilihMapel);
         rvDaftarSiswa = inputNilaiView.findViewById(R.id.rv_input_daftarSiswa);
+        pd = inputNilaiView.findViewById(R.id.pb_inputNilai);
 
         loadDaftarKelas(NIP);
         loadDaftarMapel(NIP);
@@ -123,19 +124,12 @@ public class inputNilaiFragment extends Fragment {
             }
         });
 
-
-        siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected, mapelSelected, mContext,listDataSiswa,listDataKelas,listDataMapel);
-        siswaAdapter.notifyDataSetChanged();
-        rvDaftarSiswa.setAdapter(siswaAdapter);
-        rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
-
         return inputNilaiView;
     }
 
 
     private void loadDaftarKelas(String NIPGuru){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadKelas> getAllKelasbyGuru = mApiInterface.getDataKelas(NIPGuru);
         getAllKelasbyGuru.enqueue(new Callback<loadKelas>() {
             @Override
@@ -143,7 +137,7 @@ public class inputNilaiFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body().getData().size()>0){
                         for (int i =0 ; i<response.body().getData().size(); i++){
-                            pd.cancel();
+
                             listDataKelas.add(response.body().getData().get(i));
 
                             //Spinner Kelas
@@ -169,28 +163,28 @@ public class inputNilaiFragment extends Fragment {
 
                                 }
                             });
+                            pd.setIndeterminate(false);
                         }
                     }else{
-                        pd.cancel();
+                        pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    pd.cancel();
+                    pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Error1", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadKelas> call, Throwable t) {
-                pd.cancel();
+                pd.setIndeterminate(false);
                 Toast.makeText(mContext, "Error: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadDaftarMapel(String NIPGuru){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadMapel> getAllMapelbyGuru = mApiInterface.getDataMapel(NIPGuru);
         getAllMapelbyGuru.enqueue(new Callback<loadMapel>() {
             @Override
@@ -198,7 +192,6 @@ public class inputNilaiFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body().getData().size()>0){
                         for (int i=0; i<response.body().getData().size();i++){
-                            pd.cancel();
                             listDataMapel.add(response.body().getData().get(i));
 
                             //Spinner Mapel
@@ -224,21 +217,21 @@ public class inputNilaiFragment extends Fragment {
 
                                 }
                             });
-
+                            pd.setIndeterminate(false);
                         }
                     }else{
-                        pd.cancel();
+                        pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    pd.cancel();
+                    pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Error 1", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadMapel> call, Throwable t) {
-                pd.cancel();
+                pd.setIndeterminate(false);
                 Toast.makeText(mContext, "Error "+ t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -246,8 +239,7 @@ public class inputNilaiFragment extends Fragment {
 
 
     private void loadDaftarTA(){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadTA> getAllTaCall = mApiInterface.getAllDataTA();
         getAllTaCall.enqueue(new Callback<loadTA>() {
             @Override
@@ -255,7 +247,6 @@ public class inputNilaiFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body().getData().size()>0){
                         for (int i =0;i<response.body().getData().size();i++){
-                            pd.cancel();
                             listDataTa.add(response.body().getData().get(i));
 
                             final List<String> arrayTempTa = new ArrayList<>();
@@ -281,28 +272,28 @@ public class inputNilaiFragment extends Fragment {
 
                                 }
                             });
+                            pd.setIndeterminate(false);
                         }
                     }else {
-                        pd.cancel();
+                        pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    pd.cancel();
+                    pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Error 1", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadTA> call, Throwable t) {
-                pd.cancel();
+                pd.setIndeterminate(false);
                 Toast.makeText(mContext, "Error 2: "+ t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadDaftarSiswaKelas(String kelas){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadSiswa> getSiswaCall = mApiInterface.getSiswa(kelas);
         getSiswaCall.enqueue(new Callback<loadSiswa>() {
             @Override
@@ -311,33 +302,32 @@ public class inputNilaiFragment extends Fragment {
                     if (response.body().getData().size()>0){
                         for (int i=0; i<response.body().getData().size();i++){
                             listDataSiswa.add(response.body().getData().get(i));
-
 //                            mapelSelected = spinnerMapel.getSelectedItem().toString();
 //                            kelasSelected = spinnerKelas.getSelectedItem().toString();
 //                            semesterSelected = spinnerSemester.getSelectedItem().toString();
 //                            TASelected = spinnerTA.getSelectedItem().toString();
 
-                            siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected, mapelSelected, mContext,listDataSiswa,listDataKelas,listDataMapel);
+                            siswaAdapter = new siswaAdapter(kelasSelected,TASelected,semesterSelected, mapelSelected, mContext,listDataSiswa,listDataMapel);
                             siswaAdapter.notifyDataSetChanged();
                             rvDaftarSiswa.setAdapter(siswaAdapter);
                             rvDaftarSiswa.setLayoutManager(new LinearLayoutManager(mContext));
 
-                            pd.cancel();
+                            pd.setIndeterminate(false);
                         }
                         listDataSiswa = new ArrayList<>();
                     }else {
-                        pd.cancel();
+                        pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    pd.cancel();
+                    pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Gagal. Data tidak sesuai", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadSiswa> call, Throwable t) {
-                pd.cancel();
+                pd.setIndeterminate(false);
 //                Toast.makeText(mContext, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class lihatProfilGuruFragment extends Fragment {
     private static Context context;
     private ArrayList<modelDataGuru> listDataDiriGuru;
     private TextView namaGuru, nipGuru, namaPanggilanGuru, alamatGuru, ttlGuru, kontakGuru, waliMuridGuru, mapelGuru;
-    private ProgressDialog pd;
+    private ProgressBar pd;
 
     private String NIP;
     APIInterface mApiInterface;
@@ -50,7 +51,7 @@ public class lihatProfilGuruFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pd = new ProgressDialog(context);
+
 
         SharedPreferences preferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("DATALOGIN", Context.MODE_PRIVATE);
         NIP = preferences.getString("USERNAME", null);
@@ -67,6 +68,7 @@ public class lihatProfilGuruFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View lihatProfileView = inflater.inflate(R.layout.fragment_profile_akun_guru,container,false);
+        pd = lihatProfileView.findViewById(R.id.pb_profilGuru);
         namaGuru = lihatProfileView.findViewById(R.id.text_profil_namaGuru);
         nipGuru = lihatProfileView.findViewById(R.id.text_profil_nipGuru);
         namaPanggilanGuru = lihatProfileView.findViewById(R.id.text_profilGuru_namaPanggilan);
@@ -81,8 +83,7 @@ public class lihatProfilGuruFragment extends Fragment {
     }
 
     private void onLoadProfileGuru(String NIP){
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
+        pd.setIndeterminate(true);
         Call<loadGuru> loadGuruProfileCall = mApiInterface.getDataGuru(NIP);
         loadGuruProfileCall.enqueue(new Callback<loadGuru>() {
             @Override
@@ -90,7 +91,6 @@ public class lihatProfilGuruFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body().getData().size() > 0){
                         for (int i=0; i<response.body().getData().size(); i++){
-                            pd.cancel();
                             listDataDiriGuru.add(response.body().getData().get(i));
 
                             namaGuru.setText(listDataDiriGuru.get(i).getNamaGuru());
@@ -101,22 +101,23 @@ public class lihatProfilGuruFragment extends Fragment {
                             kontakGuru.setText(listDataDiriGuru.get(i).getKontakGuru());
                             waliMuridGuru.setText(listDataDiriGuru.get(i).getIdKelas());
 //                            mapelGuru.setText(listDataDiriGuru.get(i).get;
+                            pd.setIndeterminate(false);
 
                         }
                     }else {
-                        pd.cancel();
-                        Toast.makeText(context, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Gagal: Data Diri tidak berhasil ditampung", Toast.LENGTH_SHORT).show();
+                        pd.setIndeterminate(false);
                     }
                 }else {
-                    pd.cancel();
-                    Toast.makeText(context, "Error 1", Toast.LENGTH_SHORT).show();
+                    pd.setIndeterminate(false);
+                    Toast.makeText(context, "Gagal: Data Diri tidak berhasil ditampung", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadGuru> call, Throwable t) {
-                pd.cancel();
-                Toast.makeText(context, "Error: "+ t.toString(), Toast.LENGTH_SHORT).show();
+                pd.setIndeterminate(false);
+                Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
             }
         });
     }
