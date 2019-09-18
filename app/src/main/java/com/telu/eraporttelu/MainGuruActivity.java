@@ -155,10 +155,7 @@ public class MainGuruActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+
 
     public void openPengaturanFragment(){
         pengaturanFragment = pengaturanFragment.newInstance(MainGuruActivity.this);
@@ -233,6 +230,16 @@ public class MainGuruActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private void logout(){

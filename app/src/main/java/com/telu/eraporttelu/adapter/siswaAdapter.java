@@ -109,7 +109,6 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
         onResultUpdate = 0;
 
-
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
         final Dialog inputNilai = new Dialog(context);
@@ -156,9 +155,9 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         btnOkDilaog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onResultUpdate==1){
+                if (onResultUpdate == 1) {
                     validateUpdateNilai();
-                }else {
+                } else {
                     validateNilai();
                 }
 
@@ -218,14 +217,15 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     }
 
     private void getNilai(String NIPGuru, String NISSiswa, String idMapel) {
-        onResultUpdate = 1;
         pd.setIndeterminate(true);
         Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru, NISSiswa, idMapel);
         getNilaiPlaceHolderCall.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
+
                     if (response.body().getBundleData().size() > 0) {
+                        onResultUpdate = 1;
                         for (int i = 0; i < response.body().getBundleData().size(); i++) {
                             listNilai.add(response.body().getBundleData().get(i));
                             nilaiUASDialog.setText(response.body().getBundleData().get(i).getUAS());
@@ -264,16 +264,13 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh3 = nilaiUH3Dialog.getText().toString();
         uh4 = nilaiUH4Dialog.getText().toString();
         uh5 = nilaiUH5Dialog.getText().toString();
-        final modelNilai thisNilai = new modelNilai(null,uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
+        final modelNilai thisNilai = new modelNilai(null, uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
         Call<loadNilai> postNilaiSiswa = mApiInterface.postNilai(thisNilai);
         postNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
-                    for (int i=0; i<response.body().getBundleData().size();i++){
-                        Toast.makeText(context, "Data Nilai " +response.body().getBundleData().get(i).getNISSiswa()+ " Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(context, "Data Nilai Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                     pd.setIndeterminate(false);
                 } else {
                     pd.setIndeterminate(false);
@@ -290,12 +287,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
     }
 
-    private void updateNilai(){
+    private void updateNilai() {
         pd.setIndeterminate(true);
         String idNilai, uts, uas, uh1, uh2, uh3, uh4, uh5;
 
-        if (listNilai.size()>0){
-            for (int i=0; i<listNilai.size();i++){
+        if (listNilai.size() > 0) {
+            for (int i = 0; i < listNilai.size(); i++) {
                 idNilai = listNilai.get(i).getIdNilai();
             }
         }
@@ -309,17 +306,17 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh5 = nilaiUH5Dialog.getText().toString();
 
 //        final modelNilai thisNilaiUpd = new modelNilai(idNilai ,uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
-        Call<loadNilai> putNilaiSiswa = mApiInterface.putNilai(idNilai,uas,uts,uh1,uh2,uh3,uh4,uh5,NISSiswa, NIPGuru, idMapel, semester);
+        Call<loadNilai> putNilaiSiswa = mApiInterface.putNilai(idNilai, uas, uts, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
         putNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
-                if (response.isSuccessful()){
-                    for (int i=0; i<response.body().getBundleData().size();i++){
-                        Toast.makeText(context, "Data Nilai " +response.body().getBundleData().get(i).getNISSiswa()+ " Berhasil diperbarui", Toast.LENGTH_SHORT).show();
-                    }
+                if (response.isSuccessful()) {
+                    ArrayList<modelNilai> tes = response.body().getBundleData();
+
+                    Toast.makeText(context, "Data Nilai Berhasil diperbarui", Toast.LENGTH_SHORT).show();
+
                     pd.setIndeterminate(false);
-                }
-                else {
+                } else {
                     Toast.makeText(context, "Gagal: Penambahan Nilai tidak berhasil", Toast.LENGTH_SHORT).show();
                     pd.setIndeterminate(false);
                 }

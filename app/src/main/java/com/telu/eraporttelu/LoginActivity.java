@@ -1,18 +1,13 @@
 package com.telu.eraporttelu;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,7 +20,7 @@ import com.telu.eraporttelu.response.loadLogin;
 import com.telu.eraporttelu.service.APIClient;
 import com.telu.eraporttelu.service.APIInterface;
 
-import java.util.zip.Inflater;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoadLogin(final String username, String password){
         pd.setVisibility(View.VISIBLE);
-        btnLogin.setVisibility(View.GONE);
+        btnLogin.setVisibility(View.INVISIBLE);
         Call<loadLogin> loginCall = mApiInterface.onCallLogin(username, password);
         loginCall.enqueue(new Callback<loadLogin>() {
             @Override
@@ -163,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         popup.show();
-        popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(popup.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     @Override
