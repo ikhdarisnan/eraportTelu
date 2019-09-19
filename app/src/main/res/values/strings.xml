@@ -4,7 +4,7 @@
     <string name="e_report">E-RAPORT</string>
     <string name="username">NIS/NIP</string>
     <string name="log_in">LOGIN</string>
-    <string name="lupa_password">Lupa Password?</string>
+    <string name="lupa_password">LUPA PASSWORD?</string>
     <string name="johny_alexander">Johny Alexander</string>
     <string name="nis">NIS. 18.19.01.001</string>
     <string name="profil_akun">PROFIL AKUN</string>
@@ -73,4 +73,5 @@
     <string name="gagal">Gagal</string>
     <string name="tutup">Tutup</string>
     <string name="dash">-</string>
+    <string name="edit">Edit</string>
 </resources>

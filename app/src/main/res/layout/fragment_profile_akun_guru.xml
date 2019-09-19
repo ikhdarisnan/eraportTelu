@@ -1,30 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/ic_bg2"
+    android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/pb_profilGuru"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profil_fotoSiswa"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/gambaruser"
-        app:civ_border_color="@color/colorPrimaryDark"
-        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView_guru"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_profil_nipGuru">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_profil_kotak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecondary">
+
+            <TextView
+                android:id="@+id/text_profilGuru_namaPanggilanView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:padding="5dp"
+                android:textColor="@color/colorSecondaryThird"
+                android:text="@string/nama_panggilan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_namaPanggilan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:textColor="@color/colorSecondarySecond"
+                android:hint="@string/rahmawati_s_pd_sd"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_alamatView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsbold"
+                android:padding="5dp"
+                android:text="@string/alamat"
+                android:textColor="@color/colorSecondaryThird"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_namaPanggilanView" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_alamat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsregular"
+                android:hint="@string/perumahan_palem_2_jl_sukapura_bandung"
+                android:padding="5dp"
+                android:textColor="@color/colorSecondarySecond"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_namaPanggilan" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_ttlView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsbold"
+                android:padding="5dp"
+                android:textColor="@color/colorSecondaryThird"
+                android:text="@string/tempat_tanggal_lahir"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_alamat" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_ttl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsregular"
+                android:textColor="@color/colorSecondarySecond"
+                android:hint="@string/bandung_23_may_2010"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_alamat" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_kontakView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsbold"
+                android:padding="5dp"
+                android:text="@string/kontak"
+                android:textColor="@color/colorSecondaryThird"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_ttlView" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_Kontak"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsregular"
+                android:hint="@string/_082388889999"
+                android:padding="5dp"
+                android:textColor="@color/colorSecondarySecond"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_ttl" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_kelasView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsbold"
+                android:padding="5dp"
+                android:text="@string/wali_murid_kelas"
+                android:textColor="@color/colorSecondaryThird"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_kontakView" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_Kelas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsregular"
+                android:hint="@string/_3a_ganjil"
+                android:padding="5dp"
+                android:textColor="@color/colorSecondarySecond"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_Kontak" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_mapelView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppinsbold"
+                android:textColor="@color/colorSecondaryThird"
+                android:padding="5dp"
+                android:text="@string/guru_mata_pelajaran"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_kelasView" />
+
+            <TextView
+                android:id="@+id/text_profilGuru_mapel"
+                android:layout_width="0dp"
+                android:textColor="@color/colorSecondarySecond"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppinsregular"
+                android:hint="@string/e_report"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_Kelas" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="30dp"
+                android:background="@color/colorAccent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/text_profil_nipGuru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsregular"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_profil_namaGuru" />
 
     <TextView
         android:id="@+id/text_profil_namaGuru"
@@ -38,169 +217,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_profil_fotoSiswa" />
 
-    <TextView
-        android:id="@+id/text_profil_nipGuru"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsregular"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profil_fotoSiswa"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/gambaruser"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="2dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_profil_namaGuru" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_profil_nipGuru">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layout_profil_kotak"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#d98780">
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="1dp"
-                android:visibility="gone"
-                android:layout_height="0dp"
-                android:layout_marginEnd="30dp"
-                android:background="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_namaPanggilanView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/nama_panggilan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_namaPanggilan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/rahmawati_s_pd_sd"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_alamatView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/alamat"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_namaPanggilanView" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_alamat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/perumahan_palem_2_jl_sukapura_bandung"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_namaPanggilan" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_ttlView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/tempat_tanggal_lahir"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_alamat" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_ttl"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/bandung_23_may_2010"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_alamat" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_kontakView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/kontak"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_ttlView" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_Kontak"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/_082388889999"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_ttl" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_kelasView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/wali_murid_kelas"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_kontakView" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_Kelas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/_3a_ganjil"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_Kontak" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_mapelView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/guru_mata_pelajaran"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_kelasView" />
-
-            <TextView
-                android:id="@+id/text_profilGuru_mapel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppinsregular"
-                android:hint="@string/e_report"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/divider"
-                app:layout_constraintTop_toBottomOf="@id/text_profilGuru_Kelas" />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

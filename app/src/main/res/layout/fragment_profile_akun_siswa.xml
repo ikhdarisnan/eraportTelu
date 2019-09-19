@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg2">
 
 
     <ProgressBar
@@ -80,7 +81,7 @@
             android:id="@+id/layout_profil_kotak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c1d4f5">
+            android:background="@color/colorPrimary">
 
             <View
                 android:id="@+id/divider"
@@ -95,6 +96,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:id="@+id/text_profil_namaPanggilanView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,6 +107,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:id="@+id/text_profil_namaPanggilan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,10 +124,14 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/alamat"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_namaPanggilanView" />
 
             <TextView
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:id="@+id/text_profil_alamat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -140,6 +149,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/tempat_tanggal_lahir"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_alamat" />
 
@@ -149,6 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsregular"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:text="@string/bandung_23_may_2010"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/divider"
@@ -161,6 +174,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/kontak_murid"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_ttlView" />
 
@@ -169,6 +184,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:fontFamily="@font/poppinsregular"
                 android:text="@string/_082388889999"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -180,6 +197,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/kelas_semester"
                 app:layout_constraintStart_toStartOf="parent"
@@ -192,6 +211,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsregular"
                 android:text="@string/_3a_ganjil"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/divider"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_KontakMurid" />
@@ -199,6 +220,8 @@
             <TextView
                 android:id="@+id/text_profil_waliKelasView"
                 android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/poppinsbold"
@@ -215,6 +238,8 @@
                 android:text="@string/rahmawati_s_pd_sd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/divider"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_Kelas" />
 
             <TextView
@@ -222,6 +247,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/kontak_wali_kelas"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,6 +260,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsregular"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:text="@string/_081199998888"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/divider"
@@ -241,8 +270,10 @@
             <TextView
                 android:id="@+id/text_profil_namaOrtuView"
                 android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/nama_orang_tua"
                 app:layout_constraintStart_toStartOf="parent"
@@ -252,8 +283,10 @@
                 android:id="@+id/text_profil_namaOrtu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsregular"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:text="@string/nurhayati_rahim"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/divider"
@@ -266,6 +299,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@string/kontak_orang_tua"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_profil_namaOrtuView" />
 
@@ -274,6 +309,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryThird"
                 android:fontFamily="@font/poppinsregular"
                 android:text="@string/_089999998888"
                 app:layout_constraintEnd_toEndOf="parent"

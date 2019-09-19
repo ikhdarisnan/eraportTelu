@@ -6,6 +6,7 @@
     android:id="@+id/layout__drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_bg2"
     tools:context=".MainUserActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -29,10 +30,10 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout__leftDrawer"
-        android:layout_width="300dp"
+        android:layout_width="270dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimarySecond">
 
         <Button
             android:id="@+id/btn_leftDrawer_Close"

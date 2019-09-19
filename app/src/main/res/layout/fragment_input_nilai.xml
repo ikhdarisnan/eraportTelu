@@ -2,24 +2,16 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg1">
 
     <ProgressBar
         android:id="@+id/pb_inputNilai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/text_input_pilihkelas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/pilih_kelas"
-        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,17 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_pilihkelas" />
 
-    <TextView
-        android:id="@+id/text_input_pilihTA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/tahun_ajaran"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihKelas" />
-
     <Spinner
         android:id="@+id/spinner_input_pilihTA"
         android:layout_width="300dp"
@@ -50,17 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_pilihTA" />
 
-    <TextView
-        android:id="@+id/text_input_pilihSemester"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/semester"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihTA" />
-
     <Spinner
         android:id="@+id/spinner_input_pilihSemester"
         android:layout_width="300dp"
@@ -68,17 +38,6 @@
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_pilihSemester" />
-
-    <TextView
-        android:id="@+id/text_input_pilihMapel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/pilih_mata_pelajaran"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihSemester" />
 
     <Spinner
         android:id="@+id/spinner_input_pilihMapel"
@@ -89,14 +48,87 @@
         app:layout_constraintTop_toBottomOf="@id/text_input_pilihMapel" />
 
     <TextView
+        android:id="@+id/text_input_pilihkelas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/pilih_kelas"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_input_pilihTA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/tahun_ajaran"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihKelas" />
+
+    <TextView
+        android:id="@+id/text_input_pilihSemester"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/semester"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihTA" />
+
+    <TextView
+        android:id="@+id/text_input_pilihMapel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/pilih_mata_pelajaran"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihSemester" />
+
+    <TextView
         android:id="@+id/text_input_daftarSiswa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:fontFamily="@font/poppinsregular"
         android:text="@string/daftar_siswa"
+        android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_input_pilihMapel" />
+
+    <TextView
+        android:layout_margin="20dp"
+        android:id="@+id/text_input_daftarNamaSiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/nama_siswa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_daftarSiswa" />
+
+    <TextView
+        android:id="@+id/text_input_Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_daftarSiswa" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_input_daftarSiswa"
@@ -106,7 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_daftarSiswa">
+        app:layout_constraintTop_toBottomOf="@id/text_input_Edit">
 
     </android.support.v7.widget.RecyclerView>
 
