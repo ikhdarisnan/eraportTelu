@@ -1,6 +1,6 @@
 package com.telu.eraporttelu.model;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class modelNilai {
 

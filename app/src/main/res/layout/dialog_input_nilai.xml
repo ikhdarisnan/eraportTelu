@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
@@ -7,70 +7,34 @@
     android:layout_gravity="center"
     android:background="@drawable/shape_rounded_background">
 
+    <Button
+        android:id="@+id/btn_dialog_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/divider5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_dialog_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimarySecond"
+        android:text="@string/ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider5" />
+
     <ProgressBar
         android:id="@+id/pb_inputNilai_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/text_dialog_namaSiswa"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_noneditable"
-        android:fontFamily="@font/poppinsbold"
-        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_dialog_kelasSiswa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_noneditable"
-        android:fontFamily="@font/poppinsregular"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/text_dialog_namaSiswa" />
-
-    <TextView
-        android:id="@+id/text_dialog_TASiswa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_noneditable"
-        android:fontFamily="@font/poppinsregular"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/text_dialog_kelasSiswa" />
-
-    <TextView
-        android:id="@+id/text_dialog_SemesterSiswa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_noneditable"
-        android:fontFamily="@font/poppinsregular"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/text_dialog_TASiswa" />
-
-    <TextView
-        android:id="@+id/text_dialog_mapelSiswa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_noneditable"
-        android:fontFamily="@font/poppinsregular"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/text_dialog_SemesterSiswa" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -81,11 +45,11 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="-84dp">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,14 +65,15 @@
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUas" />
 
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUts"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUas">
 
                 <EditText
                     android:id="@+id/et_dialog_inputUts"
@@ -119,9 +84,9 @@
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUts" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUh1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,12 +102,13 @@
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh1"
                     tools:layout_editor_absoluteX="-16dp" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_dialog_inputUh2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_dialog_inputUh2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh1">
 
@@ -155,27 +121,27 @@
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh2" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUh3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh2">
 
                 <EditText
                     android:id="@+id/et_dialog_inputUh3"
-                    app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_3"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh3" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUh4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,14 +157,14 @@
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh4" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_dialog_inputUh5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh4">
 
                 <EditText
                     android:id="@+id/et_dialog_inputUh5"
@@ -208,30 +174,71 @@
                     android:hint="@string/ulangan_harian_5"
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh5" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_dialog_cancel"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/text_dialog_namaSiswa"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/divider5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="5dp"
+        android:background="@drawable/shape_noneditable"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppinsbold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_dialog_ok"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/text_dialog_kelasSiswa"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ok"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/divider5" />
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_noneditable"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppinsregular"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/text_dialog_namaSiswa" />
+
+    <TextView
+        android:id="@+id/text_dialog_TASiswa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_noneditable"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppinsregular"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/text_dialog_kelasSiswa" />
+
+    <TextView
+        android:id="@+id/text_dialog_SemesterSiswa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_noneditable"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppinsregular"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/text_dialog_TASiswa" />
+
+    <TextView
+        android:id="@+id/text_dialog_mapelSiswa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_noneditable"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppinsregular"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/text_dialog_SemesterSiswa" />
 
     <View
         android:id="@+id/divider5"
@@ -242,4 +249,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

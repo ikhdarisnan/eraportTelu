@@ -5,14 +5,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -26,12 +26,9 @@ import com.telu.eraporttelu.fragment.lihatNilaiFragment;
 import com.telu.eraporttelu.fragment.lihatProfilSiswaFragment;
 import com.telu.eraporttelu.fragment.pengaturanFragment;
 import com.telu.eraporttelu.model.modelSiswa;
-import com.telu.eraporttelu.response.loadGuru;
 import com.telu.eraporttelu.response.loadSiswa;
 import com.telu.eraporttelu.service.APIClient;
 import com.telu.eraporttelu.service.APIInterface;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -235,6 +232,7 @@ public class MainUserActivity extends AppCompatActivity {
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        getSharedPreferences("DATALOGIN",MODE_PRIVATE).edit().putString("isLOGIN","0").apply();
                         startActivity(new Intent(MainUserActivity.this, LoginActivity.class));
                         finish();
                     }

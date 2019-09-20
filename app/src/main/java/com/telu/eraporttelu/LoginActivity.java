@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -110,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                         for (int i=0; i<response.body().getData().size();i++){
                             getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("USERNAME",response.body().getData().get(i).getUsername()).apply();
                             getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("STATUS",response.body().getData().get(i).getStatusLogin()).apply();
+                            String isLogin = "1";
+                            getSharedPreferences("DATALOGIN",MODE_PRIVATE).edit().putString("isLOGIN",isLogin).apply();
                             if (response.body().getData().get(i).getStatusLogin().equals("1")){
                                 startActivity(new Intent(LoginActivity.this, MainGuruActivity.class));
                                 finish();

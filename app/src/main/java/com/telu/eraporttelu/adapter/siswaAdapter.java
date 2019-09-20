@@ -3,14 +3,13 @@ package com.telu.eraporttelu.adapter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.telu.eraporttelu.R;
-import com.telu.eraporttelu.model.modelDataKelas;
 import com.telu.eraporttelu.model.modelDataMapel;
 import com.telu.eraporttelu.model.modelNilai;
 import com.telu.eraporttelu.model.modelSiswa;
@@ -49,6 +47,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     private ArrayList<modelSiswa> listSiswa;
     private ArrayList<modelDataMapel> listMapel;
     private ArrayList<modelNilai> listNilai;
+    private Dialog inputNilai;
 
     private APIInterface mApiInterface;
 
@@ -111,7 +110,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
-        final Dialog inputNilai = new Dialog(context);
+        inputNilai = new Dialog(context);
         inputNilai.setCancelable(false);
         inputNilai.setCanceledOnTouchOutside(false);
 
@@ -187,7 +186,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     }
 
     private void validateNilai() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Validasi Input Nilai")
                 .setMessage("Apakah anda yakin data yang diinputkan sudah benar ?")
                 .setNegativeButton("Belum", null)
@@ -195,6 +194,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         postNilai();
+                        inputNilai.dismiss();
                     }
                 });
         AlertDialog alertDialog = builder.create();
@@ -210,6 +210,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         updateNilai();
+                        inputNilai.dismiss();
                     }
                 });
         AlertDialog alertDialog = builder.create();

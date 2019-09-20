@@ -2,9 +2,9 @@ package com.telu.eraporttelu.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,14 +49,14 @@ public class pengaturanFragment extends Fragment {
         layoutGantiUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Check Ganti Username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fitur ini belum didukung", Toast.LENGTH_SHORT).show();
             }
         });
 
         layoutGantiPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Check Ganti Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fitur ini belum didukung", Toast.LENGTH_SHORT).show();
             }
         });
         return pengaturanView;

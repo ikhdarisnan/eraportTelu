@@ -1,9 +1,8 @@
 package com.telu.eraporttelu.response;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
-import com.telu.eraporttelu.model.modelDataKelas;
 import com.telu.eraporttelu.model.modelNilai;
 
 import java.util.ArrayList;

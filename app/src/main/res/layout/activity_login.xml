@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_bg3"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryThird"
         tools:context=".LoginActivity">
 
         <Button
@@ -49,7 +49,7 @@
             android:id="@+id/text_login_eraport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/poppinsbold"
             android:text="@string/e_report"
             android:textColor="@android:color/black"
@@ -62,7 +62,7 @@
             android:id="@+id/text_login_sekolah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/poppinsbold"
             android:text="@string/sdn_1_cipagalo"
             android:textColor="@android:color/black"
@@ -80,10 +80,11 @@
             android:text="@string/lupa_password"
             android:textColor="@color/colorSecondaryDark"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login_login" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_login_etPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -100,18 +101,17 @@
                 android:fontFamily="@font/poppinsregular"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_login_autocompleteUsername"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/text_login_sekolah">
 
             <AutoCompleteTextView
                 android:id="@+id/autoComplete_login_username"
@@ -121,9 +121,9 @@
                 android:hint="@string/username"
                 android:inputType="number" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>
