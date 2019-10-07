@@ -1,5 +1,6 @@
 package com.telu.eraporttelu.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class lihatProfilSiswaFragment extends Fragment {
     private TextView namaWaliSiswa, kontakWaliSiswa, namaOrtuSiswa, kontakOrtuSiswa, semester;
     private ArrayList<modelSiswa> listDataDiriSiswa;
     private String NIS;
-    APIInterface mApiInterface;
+    private APIInterface mApiInterface;
 
     public lihatProfilSiswaFragment() {
 
@@ -88,6 +89,7 @@ public class lihatProfilSiswaFragment extends Fragment {
         pd.setIndeterminate(true);
         Call<loadSiswa> loadSiswaProfileCall = mApiInterface.getDataSiswa(NIS);
         loadSiswaProfileCall.enqueue(new Callback<loadSiswa>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<loadSiswa> call, Response<loadSiswa> response) {
                 if (response.isSuccessful()){
@@ -96,9 +98,11 @@ public class lihatProfilSiswaFragment extends Fragment {
                             listDataDiriSiswa.add(response.body().getData().get(i));
 
                             namaSiswa.setText(listDataDiriSiswa.get(i).getNamaSiswa());
-                            nisSiswa.setText(listDataDiriSiswa.get(i).getNISSiswa());
+                            nisSiswa.setText("NIS. " + listDataDiriSiswa.get(i).getNISSiswa());
+                            nisnSiswa.setText("NISN. " + listDataDiriSiswa.get(i).getNisnSiswa());
                             alamatSiswa.setText(listDataDiriSiswa.get(i).getAlamatSiswa());
-                            kelasSiswa.setText(listDataDiriSiswa.get(i).getNamaKelas());
+                            kelasSiswa.setText(listDataDiriSiswa.get(i).getNamaKelas() +
+                                    " / " + listDataDiriSiswa.get(i).getSemesterSiswa());
                             namaPanggilanSiswa.setText(listDataDiriSiswa.get(i).getNamaPanggilan());
                             ttlSiswa.setText(listDataDiriSiswa.get(i).getTtlSiswa());
                             kontakSiswa.setText(listDataDiriSiswa.get(i).getKontakSiswa());

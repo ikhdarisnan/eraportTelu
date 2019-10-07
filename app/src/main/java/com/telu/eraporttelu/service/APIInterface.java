@@ -37,7 +37,9 @@ public interface APIInterface {
     Call<loadNilai> getNilaiByParams(
             @Query("NIPGuru") String NIPGuru,
             @Query("NISSiswa") String NISSiswa,
-            @Query("idMapel") String idMapel
+            @Query("idMapel") String idMapel,
+            @Query("semester") String semester,
+            @Query("namaTA") String namaTA
             );
 
     @POST("Nilai/siswaGuru")
@@ -69,9 +71,19 @@ public interface APIInterface {
             @Field("NISSiswa") String nisSiswa,
             @Field("NIPGuru") String NIPGuru,
             @Field("idMapel") String idMapel,
-            @Field("semester") String semester
+            @Field("semester") String semester,
+            @Field("namaTA") String namaTA
     );
 
+
+    //Todo Revisi buat get Nilai berdasarkan TA dan Semester
     @GET("Nilai/siswa/{NISSiswa}")
     Call<loadNilai> getNilaiSiswa(@Path("NISSiswa")String NISSiswa);
+
+    @GET("Nilai/siswaAkhir")
+    Call<loadNilai> getNilaiSiswaBySemTA(
+            @Query("NISSiswa") String NISSiswa,
+            @Query("semester") String semester,
+            @Query("namaTA") String namaTA
+            );
 }

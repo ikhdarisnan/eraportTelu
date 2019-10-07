@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,20 +38,20 @@ public class lihatNilaiFragment extends Fragment {
     private static Context mContext;
 
     private String TASelected, semesterSelected, NISSiswa;
-    private int nilaiAkhir;
-    private int kkm;
+    private int kkm, TotNilai, avgNilai;
 
     private Spinner spinnerTA, spinnerSemester;
-    private ArrayAdapter<String> spinnerTAAdapter, spinnerSemesterAdapter;
-    private Button btnCari;
+    private ArrayAdapter<String> spinnerTAAdapter;
 
     private TextView nilaiAgama, kkmAgama, deskAgama, nilaiPkn, kkmPkn, deskPkn ,nilaiBindo ,kkmBindo, deskBindo, nilaiMtk ,kkmMtk, deskMtk, nilaiIpa ,kkmIpa, deskIpa,
-            nilaiIps, kkmIps, deskIps, nilaiSenBud, kkmSenBud, deskSenBud, nilaiPenjas, kkmPenjas, deskPenjas;
+            nilaiIps, kkmIps, deskIps, nilaiSenBud, kkmSenBud, deskSenBud, nilaiPenjas, kkmPenjas, deskPenjas, kkmBsunda, nilaiBsunda,deskBSunda;
+    private TextView jmlhNilai, rataNilai;
 
     private ProgressBar pd;
 
     private ArrayList<modelDataTA> listTahunAjaran;
     private ArrayList<modelNilai> listAllNilai;
+    private ArrayList<Integer> listFinNilai;
 
     private APIInterface mApiInterface;
 
@@ -77,8 +76,8 @@ public class lihatNilaiFragment extends Fragment {
 
         listTahunAjaran = new ArrayList<>();
         listAllNilai = new ArrayList<>();
-
-        kkm = 75;
+        listFinNilai = new ArrayList<>();
+        kkm = 70;
     }
 
     @Nullable
@@ -87,47 +86,63 @@ public class lihatNilaiFragment extends Fragment {
         View lihatNilaiView = inflater.inflate(R.layout.fragment_lihat_nilai,container,false);
 
         pd = lihatNilaiView.findViewById(R.id.pb_lihatNilai);
-        TableLayout tableLayout1 = lihatNilaiView.findViewById(R.id.table_1);
-        TableLayout tableLayout2 = lihatNilaiView.findViewById(R.id.table_2);
+//        TableLayout tableLayout1 = lihatNilaiView.findViewById(R.id.table_1);
+//        TableLayout tableLayout2 = lihatNilaiView.findViewById(R.id.table_2);
 
         spinnerTA = lihatNilaiView.findViewById(R.id.spinner_lihatNilai_spTA);
         onLoadTahunAjaran();
         spinnerSemester = lihatNilaiView.findViewById(R.id.spinner_lihatNilai_spSemester);
         onLoadSemester();
 
-        btnCari = lihatNilaiView.findViewById(R.id.btn_lihatNilai_cari);
+        Button btnCari = lihatNilaiView.findViewById(R.id.btn_lihatNilai_cari);
 
         nilaiAgama = lihatNilaiView.findViewById(R.id.text_table_nilaiAgama);
         kkmAgama = lihatNilaiView.findViewById(R.id.text_table_kkmAgama);
+        kkmAgama.setText(String.valueOf(kkm));
         deskAgama = lihatNilaiView.findViewById(R.id.text_table_deskAgama);
 
         nilaiPkn = lihatNilaiView.findViewById(R.id.text_table_nilaiPkn);
         kkmPkn = lihatNilaiView.findViewById(R.id.text_table_kkmPkn);
+        kkmPkn.setText(String.valueOf(kkm));
         deskPkn = lihatNilaiView.findViewById(R.id.text_table_deskPkn);
 
         nilaiBindo = lihatNilaiView.findViewById(R.id.text_table_nilaiBindo);
         kkmBindo = lihatNilaiView.findViewById(R.id.text_table_kkmBindo);
+        kkmBindo.setText(String.valueOf(kkm));
         deskBindo = lihatNilaiView.findViewById(R.id.text_table_deskBindo);
 
         nilaiMtk = lihatNilaiView.findViewById(R.id.text_table_nilaiMtk);
         kkmMtk = lihatNilaiView.findViewById(R.id.text_table_kkmMtk);
+        kkmMtk.setText(String.valueOf(kkm));
         deskMtk = lihatNilaiView.findViewById(R.id.text_table_deskMtk);
 
         nilaiIpa = lihatNilaiView.findViewById(R.id.text_table_nilaiIpa);
         kkmIpa = lihatNilaiView.findViewById(R.id.text_table_kkmIpa);
+        kkmIpa.setText(String.valueOf(kkm));
         deskIpa = lihatNilaiView.findViewById(R.id.text_table_deskIpa);
 
         nilaiIps = lihatNilaiView.findViewById(R.id.text_table_nilaiIps);
         kkmIps = lihatNilaiView.findViewById(R.id.text_table_kkmIps);
+        kkmIps.setText(String.valueOf(kkm));
         deskIps = lihatNilaiView.findViewById(R.id.text_table_deskIps);
 
         nilaiSenBud = lihatNilaiView.findViewById(R.id.text_table_nilaiSenbud);
         kkmSenBud = lihatNilaiView.findViewById(R.id.text_table_kkmSenbud);
+        kkmSenBud.setText(String.valueOf(kkm));
         deskSenBud = lihatNilaiView.findViewById(R.id.text_table_deskSenbud);
 
         nilaiPenjas = lihatNilaiView.findViewById(R.id.text_table_nilaiPenjas);
         kkmPenjas = lihatNilaiView.findViewById(R.id.text_table_kkmPenjas);
+        kkmPenjas.setText(String.valueOf(kkm));
         deskPenjas = lihatNilaiView.findViewById(R.id.text_table_deskPenjas);
+
+        nilaiBsunda = lihatNilaiView.findViewById(R.id.text_table_nilaiBunda);
+        kkmBsunda = lihatNilaiView.findViewById(R.id.text_table_kkmBunda);
+        kkmBsunda.setText(String.valueOf(kkm));
+        deskBSunda = lihatNilaiView.findViewById(R.id.text_table_deskBunda);
+
+        jmlhNilai = lihatNilaiView.findViewById(R.id.text_table_jmlhNilai);
+        rataNilai = lihatNilaiView.findViewById(R.id.text_table_rata2);
 
         btnCari.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,175 +157,216 @@ public class lihatNilaiFragment extends Fragment {
 
     private void onGetNilaiByMapel(){
         int uas,uts,uh1,uh2,uh3,uh4,uh5;
+        String terlampaui = "TERLAMPAUI";
+        String tidakTerlampaui = "TIDAK TERLAMPAUI";
+        String cukup = "CUKUP";
         for (int i=0; i<listAllNilai.size(); i++){
-            if (listAllNilai.get(i).getIdMapel().equals("1")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+            int nilaiAkhir;
+            switch (listAllNilai.get(i).getIdMapel()) {
+                case "1":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiAgama.setText(String.valueOf(nilaiAkhir));
-                if (nilaiAkhir > kkm){
-                    deskAgama.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskAgama.setText("TERCUKUPI");
-                }else {
-                    deskAgama.setText("TIDAK TERLAMPAUI");
-                }
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiAgama.setText(String.valueOf(nilaiAkhir));
+                    if (nilaiAkhir > kkm) {
+                        deskAgama.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskAgama.setText(cukup);
+                    } else {
+                        deskAgama.setText(tidakTerlampaui);
+                    }
 
-            }else if (listAllNilai.get(i).getIdMapel().equals("2")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    break;
+                case "2":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiPkn.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiPkn.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskPkn.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskPkn.setText("TERCUKUPI");
-                }else {
-                    deskPkn.setText("TIDAK TERLAMPAUI");
-                }
-            }else if (listAllNilai.get(i).getIdMapel().equals("3")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    if (nilaiAkhir > kkm) {
+                        deskPkn.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskPkn.setText(cukup);
+                    } else {
+                        deskPkn.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "3":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiBindo.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiBindo.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskBindo.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskBindo.setText("TERCUKUPI");
-                }else {
-                    deskBindo.setText("TIDAK TERLAMPAUI");
-                }
-            } else if (listAllNilai.get(i).getIdMapel().equals("4")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    if (nilaiAkhir > kkm) {
+                        deskBindo.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskBindo.setText(cukup);
+                    } else {
+                        deskBindo.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "4":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiMtk.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiMtk.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskMtk.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskMtk.setText("TERCUKUPI");
-                }else {
-                    deskMtk.setText("TIDAK TERLAMPAUI");
-                }
-            } else if (listAllNilai.get(i).getIdMapel().equals("5")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    if (nilaiAkhir > kkm) {
+                        deskMtk.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskMtk.setText(cukup);
+                    } else {
+                        deskMtk.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "5":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiIpa.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiIpa.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskIpa.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskIpa.setText("TERCUKUPI");
-                }else {
-                    deskIpa.setText("TIDAK TERLAMPAUI");
-                }
+                    if (nilaiAkhir > kkm) {
+                        deskIpa.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskIpa.setText(cukup);
+                    } else {
+                        deskIpa.setText(tidakTerlampaui);
+                    }
 
-            } else if (listAllNilai.get(i).getIdMapel().equals("6")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    break;
+                case "6":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiIps.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiIps.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskIps.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskIps.setText("TERCUKUPI");
-                }else {
-                    deskIps.setText("TIDAK TERLAMPAUI");
-                }
-            }else if (listAllNilai.get(i).getIdMapel().equals("7")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    if (nilaiAkhir > kkm) {
+                        deskIps.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskIps.setText(cukup);
+                    } else {
+                        deskIps.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "7":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiSenBud.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiSenBud.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskSenBud.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskSenBud.setText("TERCUKUPI");
-                }else {
-                    deskSenBud.setText("TIDAK TERLAMPAUI");
-                }
-            }else if (listAllNilai.get(i).getIdMapel().equals("8")){
-                uas = Integer.parseInt(listAllNilai.get(i).getUAS());
-                uts = Integer.parseInt(listAllNilai.get(i).getUTS());
-                uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
-                uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
-                uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
-                uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
-                uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+                    if (nilaiAkhir > kkm) {
+                        deskSenBud.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskSenBud.setText(cukup);
+                    } else {
+                        deskSenBud.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "8":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
 
-                nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
-                nilaiPenjas.setText(String.valueOf(nilaiAkhir));
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiPenjas.setText(String.valueOf(nilaiAkhir));
 
-                if (nilaiAkhir > kkm){
-                    deskPenjas.setText("TERLAMPAUI");
-                }else if (nilaiAkhir==kkm){
-                    deskPenjas.setText("TERCUKUPI");
-                }else {
-                    deskPenjas.setText("TIDAK TERLAMPAUI");
-                }
+                    if (nilaiAkhir > kkm) {
+                        deskPenjas.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskPenjas.setText(cukup);
+                    } else {
+                        deskPenjas.setText(tidakTerlampaui);
+                    }
+                    break;
+                case "9":
+                    uas = Integer.parseInt(listAllNilai.get(i).getUAS());
+                    uts = Integer.parseInt(listAllNilai.get(i).getUTS());
+                    uh1 = Integer.parseInt(listAllNilai.get(i).getUH1());
+                    uh2 = Integer.parseInt(listAllNilai.get(i).getUH2());
+                    uh3 = Integer.parseInt(listAllNilai.get(i).getUH3());
+                    uh4 = Integer.parseInt(listAllNilai.get(i).getUH4());
+                    uh5 = Integer.parseInt(listAllNilai.get(i).getUH5());
+
+                    nilaiAkhir = calculateNilaiAkhir(uts, uas, uh1, uh2, uh3, uh4, uh5);
+                    listFinNilai.add(nilaiAkhir);
+                    nilaiBsunda.setText(String.valueOf(nilaiAkhir));
+
+                    if (nilaiAkhir > kkm) {
+                        deskBSunda.setText(terlampaui);
+                    } else if (nilaiAkhir == kkm) {
+                        deskBSunda.setText(cukup);
+                    } else {
+                        deskBSunda.setText(tidakTerlampaui);
+                    }
+                    break;
             }
-
-
         }
-
+        onCalculateSumAvg();
     }
     private void onLoadAllNilai(){
         pd.setIndeterminate(true);
-        Call<loadNilai> getAllNilai = mApiInterface.getNilaiSiswa(NISSiswa);
+        Call<loadNilai> getAllNilai = mApiInterface.getNilaiSiswaBySemTA(NISSiswa,semesterSelected,TASelected);
         getAllNilai.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()){
                     listAllNilai.addAll(response.body().getBundleData());
                     onGetNilaiByMapel();
+                    listAllNilai=new ArrayList<>();
                 }else {
                     Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                 }
@@ -349,6 +405,25 @@ public class lihatNilaiFragment extends Fragment {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     TASelected = parent.getItemAtPosition(position).toString();
+
+                                    nilaiSenBud.setText("-");
+                                    deskSenBud.setText("-");
+                                    nilaiAgama.setText("-");
+                                    deskAgama.setText("-");
+                                    nilaiBindo.setText("-");
+                                    deskBindo.setText("-");
+                                    nilaiBsunda.setText("-");
+                                    deskBSunda.setText("-");
+                                    nilaiIpa.setText("-");
+                                    deskIpa.setText("-");
+                                    nilaiIps.setText("-");
+                                    deskIps.setText("-");
+                                    nilaiMtk.setText("-");
+                                    deskMtk.setText("-");
+                                    nilaiPenjas.setText("-");
+                                    deskPenjas.setText("-");
+                                    nilaiPkn.setText("-");
+                                    deskPkn.setText("-");
                                 }
 
                                 @Override
@@ -383,13 +458,32 @@ public class lihatNilaiFragment extends Fragment {
         //Spinner Semester
         arraySpinnerSemester.add("GANJIL");
         arraySpinnerSemester.add("GENAP");
-        spinnerSemesterAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arraySpinnerSemester);
+        ArrayAdapter<String> spinnerSemesterAdapter = new ArrayAdapter<>(mContext, R.layout.layout_simple_spinner_item, arraySpinnerSemester);
         spinnerSemesterAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
         spinnerSemester.setAdapter(spinnerSemesterAdapter);
         spinnerSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 semesterSelected = parent.getItemAtPosition(position).toString();
+
+                nilaiAgama.setText("-");
+                deskAgama.setText("-");
+                nilaiBindo.setText("-");
+                deskBindo.setText("-");
+                nilaiBsunda.setText("-");
+                deskBSunda.setText("-");
+                nilaiIpa.setText("-");
+                deskIpa.setText("-");
+                nilaiIps.setText("-");
+                deskIps.setText("-");
+                nilaiMtk.setText("-");
+                deskMtk.setText("-");
+                nilaiPenjas.setText("-");
+                deskPenjas.setText("-");
+                nilaiPkn.setText("-");
+                deskPkn.setText("-");
+                nilaiSenBud.setText("-");
+                deskSenBud.setText("-");
             }
 
             @Override
@@ -419,6 +513,26 @@ public class lihatNilaiFragment extends Fragment {
         finalNilaiAkhir = ((finUas+finUts+finUh));
 
         return finalNilaiAkhir;
+    }
+
+    private void onCalculateSumAvg(){
+        if (listFinNilai!= null){
+            int jumlah = listFinNilai.size();
+            TotNilai = 0;
+            for (int i=0; i<jumlah;i++){
+                TotNilai = TotNilai + listFinNilai.get(i);
+            }
+            jmlhNilai.setText(String.valueOf(TotNilai));
+
+            if (listFinNilai.size()==0){
+                avgNilai = 0;
+            }else {
+                avgNilai = TotNilai/listFinNilai.size();
+            }
+            rataNilai.setText(String.valueOf(avgNilai));
+            listFinNilai = new ArrayList<>();
+            Toast.makeText(mContext, "Data Nilai Berhasil didapatkan", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

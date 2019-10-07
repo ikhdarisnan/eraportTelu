@@ -35,7 +35,7 @@ public class lihatProfilGuruFragment extends Fragment {
     private ProgressBar pd;
 
     private String NIP;
-    APIInterface mApiInterface;
+    private APIInterface mApiInterface;
 
     public lihatProfilGuruFragment() {
 
@@ -56,7 +56,7 @@ public class lihatProfilGuruFragment extends Fragment {
         NIP = preferences.getString("USERNAME", null);
 
         listDataDiriGuru = new ArrayList<>();
-        
+
         mApiInterface = APIClient.getClient().create(APIInterface.class);
 
     }

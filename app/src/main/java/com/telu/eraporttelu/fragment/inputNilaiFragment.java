@@ -46,10 +46,14 @@ public class inputNilaiFragment extends Fragment {
     private static Context mContext;
     private siswaAdapter siswaAdapter;
     private RecyclerView rvDaftarSiswa;
-    private Spinner spinnerKelas, spinnerTA, spinnerSemester, spinnerMapel;
+    private Spinner spinnerKelas;
+    private Spinner spinnerTA;
+    private Spinner spinnerMapel;
     private ProgressBar pd;
 
-    private ArrayAdapter<String> spinnerKelasAdapter, spinnerMapelAdapter, spinnerTAAdapter, spinnerSemesterAdapter;
+    private ArrayAdapter<String> spinnerKelasAdapter;
+    private ArrayAdapter<String> spinnerMapelAdapter;
+    private ArrayAdapter<String> spinnerTAAdapter;
 
     private ArrayList<String> arraySpinnerSemester;
     private ArrayList<modelDataMapel> listDataMapel;
@@ -57,9 +61,9 @@ public class inputNilaiFragment extends Fragment {
     private ArrayList<modelDataTA> listDataTa;
     private ArrayList<modelSiswa> listDataSiswa;
 
-    public String kelasSelected, TASelected, semesterSelected, mapelSelected, NIP;
+    private String kelasSelected, TASelected, semesterSelected, mapelSelected, NIP;
 
-    APIInterface mApiInterface;
+    private APIInterface mApiInterface;
 
     public inputNilaiFragment() {
 
@@ -93,7 +97,7 @@ public class inputNilaiFragment extends Fragment {
         View inputNilaiView = inflater.inflate(R.layout.fragment_input_nilai, container, false);
         spinnerKelas = inputNilaiView.findViewById(R.id.spinner_input_pilihKelas);
         spinnerTA = inputNilaiView.findViewById(R.id.spinner_input_pilihTA);
-        spinnerSemester = inputNilaiView.findViewById(R.id.spinner_input_pilihSemester);
+        Spinner spinnerSemester = inputNilaiView.findViewById(R.id.spinner_input_pilihSemester);
         spinnerMapel = inputNilaiView.findViewById(R.id.spinner_input_pilihMapel);
         rvDaftarSiswa = inputNilaiView.findViewById(R.id.rv_input_daftarSiswa);
         pd = inputNilaiView.findViewById(R.id.pb_inputNilai);
@@ -105,7 +109,7 @@ public class inputNilaiFragment extends Fragment {
         //Spinner Semester
         arraySpinnerSemester.add("GANJIL");
         arraySpinnerSemester.add("GENAP");
-        spinnerSemesterAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arraySpinnerSemester);
+        ArrayAdapter<String> spinnerSemesterAdapter = new ArrayAdapter<>(mContext, R.layout.layout_simple_spinner_item, arraySpinnerSemester);
         spinnerSemesterAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
         spinnerSemester.setAdapter(spinnerSemesterAdapter);
         spinnerSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -113,6 +117,7 @@ public class inputNilaiFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 semesterSelected = parent.getItemAtPosition(position).toString();
                 loadDaftarSiswaKelas(kelasSelected);
+
             }
 
             @Override

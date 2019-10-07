@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">eraportTelu</string>
+    <string name="app_name">E-RAPORT SDN 01 CIPAGALO</string>
     <string name="sdn_1_cipagalo">SDN 01 CIPAGALO</string>
     <string name="e_report">E-RAPORT</string>
     <string name="username">NIS/NIP</string>
@@ -74,4 +74,7 @@
     <string name="tutup">Tutup</string>
     <string name="dash">-</string>
     <string name="edit">Edit</string>
+    <string name="bahasa_sunda">Bahasa Sunda</string>
+    <string name="jumlah_nilai">Jumlah Nilai</string>
+    <string name="rata_rata">Rata- Rata</string>
 </resources>

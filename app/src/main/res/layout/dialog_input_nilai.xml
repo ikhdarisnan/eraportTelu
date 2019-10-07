@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:background="@drawable/shape_rounded_button_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/divider5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -20,7 +21,7 @@
         android:id="@+id/btn_dialog_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimarySecond"
+        android:background="@drawable/shape_rounded_button"
         android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +64,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/nilai_uas"
                     android:inputType="number"
+                    android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUas" />
 
 
@@ -82,6 +84,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/uts"
                     android:inputType="number"
+                    android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUts" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_1"
+                    android:maxLength="3"
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh1"
                     tools:layout_editor_absoluteX="-16dp" />
@@ -118,6 +122,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_2"
+                    android:maxLength="3"
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh2" />
 
@@ -136,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_3"
+                    android:maxLength="3"
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh3" />
 
@@ -155,6 +161,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_4"
                     android:inputType="number"
+                    android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh4" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -172,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_5"
+                    android:maxLength="5"
                     android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh5" />
             </com.google.android.material.textfield.TextInputLayout>

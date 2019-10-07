@@ -37,7 +37,7 @@ import retrofit2.Response;
 
 public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> {
 
-    private static final String TAG = "siswaAdapter";
+//    private static final String TAG = "siswaAdapter";
     private String kelas, TA, semester, mapel, NIPGuru, NISSiswa;
     private String idMapel;
     private int onResultUpdate;
@@ -182,7 +182,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
             }
         });
         inputNilai.show();
-        inputNilai.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(inputNilai.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     private void validateNilai() {
@@ -219,7 +219,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
     private void getNilai(String NIPGuru, String NISSiswa, String idMapel) {
         pd.setIndeterminate(true);
-        Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru, NISSiswa, idMapel);
+        Call<loadNilai> getNilaiPlaceHolderCall = mApiInterface.getNilaiByParams(NIPGuru, NISSiswa, idMapel,semester,TA);
         getNilaiPlaceHolderCall.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
@@ -265,7 +265,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh3 = nilaiUH3Dialog.getText().toString();
         uh4 = nilaiUH4Dialog.getText().toString();
         uh5 = nilaiUH5Dialog.getText().toString();
-        final modelNilai thisNilai = new modelNilai(null, uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
+        final modelNilai thisNilai = new modelNilai(null, uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester,TA);
         Call<loadNilai> postNilaiSiswa = mApiInterface.postNilai(thisNilai);
         postNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
@@ -291,12 +291,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
     private void updateNilai() {
         pd.setIndeterminate(true);
         String idNilai, uts, uas, uh1, uh2, uh3, uh4, uh5;
-
-        if (listNilai.size() > 0) {
-            for (int i = 0; i < listNilai.size(); i++) {
-                idNilai = listNilai.get(i).getIdNilai();
-            }
-        }
+//
+//        if (listNilai.size() > 0) {
+//            for (int i = 0; i < listNilai.size(); i++) {
+//                idNilai = listNilai.get(i).getIdNilai();
+//            }
+//        }
         idNilai = listNilai.get(0).getIdNilai();
         uts = nilaiUTSDialog.getText().toString();
         uas = nilaiUASDialog.getText().toString();
@@ -307,13 +307,11 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
         uh5 = nilaiUH5Dialog.getText().toString();
 
 //        final modelNilai thisNilaiUpd = new modelNilai(idNilai ,uts, uas, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
-        Call<loadNilai> putNilaiSiswa = mApiInterface.putNilai(idNilai, uas, uts, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester);
+        Call<loadNilai> putNilaiSiswa = mApiInterface.putNilai(idNilai, uas, uts, uh1, uh2, uh3, uh4, uh5, NISSiswa, NIPGuru, idMapel, semester,TA);
         putNilaiSiswa.enqueue(new Callback<loadNilai>() {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<modelNilai> tes = response.body().getBundleData();
-
                     Toast.makeText(context, "Data Nilai Berhasil diperbarui", Toast.LENGTH_SHORT).show();
 
                     pd.setIndeterminate(false);

@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:id="@+id/pb_lihatNilai"
@@ -22,9 +22,11 @@
 
         <Button
             android:id="@+id/btn_lihatNilai_cari"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cari"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_rounded_button"
+            android:text="@string/lihat_nilai"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_lihatNilai_spSemester" />

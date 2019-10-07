@@ -16,8 +16,9 @@ public class modelNilai {
     private String NIPGuru;
     private String idMapel;
     private String semester;
+    private String namaTA;
 
-    public modelNilai(@Nullable String idNilai, String UTS, String UAS, String UH1, String UH2, String UH3, String UH4, String UH5, String NISSiswa, String NIPGuru, String idMapel, String semester) {
+    public modelNilai(String idNilai, String UTS, String UAS, String UH1, String UH2, String UH3, String UH4, String UH5, String NISSiswa, String NIPGuru, String idMapel, String semester, String namaTA) {
         this.idNilai = idNilai;
         this.UTS = UTS;
         this.UAS = UAS;
@@ -30,6 +31,7 @@ public class modelNilai {
         this.NIPGuru = NIPGuru;
         this.idMapel = idMapel;
         this.semester = semester;
+        this.namaTA = namaTA;
     }
 
     public String getIdNilai() {
@@ -126,5 +128,13 @@ public class modelNilai {
 
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+
+    public String getNamaTA() {
+        return namaTA;
+    }
+
+    public void setNamaTA(String namaTA) {
+        this.namaTA = namaTA;
     }
 }
