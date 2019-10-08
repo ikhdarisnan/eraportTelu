@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                             getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("STATUS",response.body().getData().get(i).getStatusLogin()).apply();
                             String isLogin = "1";
                             getSharedPreferences("DATALOGIN",MODE_PRIVATE).edit().putString("isLOGIN",isLogin).apply();
+                            getSharedPreferences("DATALOGIN", MODE_PRIVATE).edit().putString("PASSWORD",response.body().getData().get(i).getPassword()).apply();
                             if (response.body().getData().get(i).getStatusLogin().equals("1")){
                                 startActivity(new Intent(LoginActivity.this, MainGuruActivity.class));
                                 finish();

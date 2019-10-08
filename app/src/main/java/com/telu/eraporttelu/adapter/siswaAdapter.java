@@ -271,10 +271,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
+                    popUpBerhasil("Data Nilai Berhasil ditambahkan");
                     Toast.makeText(context, "Data Nilai Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                     pd.setIndeterminate(false);
                 } else {
                     pd.setIndeterminate(false);
+                    popUpGagal("Gagal: Penambahan Nilai tidak berhasil");
                     Toast.makeText(context, "Gagal: Penambahan Nilai tidak berhasil", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -282,6 +284,7 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
                 pd.setIndeterminate(false);
+                popUpGagal("Gagal: Harap periksa jaringan internet ");
                 Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
             }
         });
@@ -312,10 +315,12 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()) {
+                    popUpBerhasil("Data Nilai berhasil diperbarui");
                     Toast.makeText(context, "Data Nilai Berhasil diperbarui", Toast.LENGTH_SHORT).show();
 
                     pd.setIndeterminate(false);
                 } else {
+                    popUpGagal("Update Nilai Gagal: Penambahan Nilai tidak berhasil");
                     Toast.makeText(context, "Gagal: Penambahan Nilai tidak berhasil", Toast.LENGTH_SHORT).show();
                     pd.setIndeterminate(false);
                 }
@@ -323,9 +328,58 @@ public class siswaAdapter extends RecyclerView.Adapter<siswaAdapter.ViewHolder> 
 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
+                popUpGagal("Update Nilai Gagal: Harap periksa jaringan internet ");
                 Toast.makeText(context, "Gagal: Harap periksa jaringan internet ", Toast.LENGTH_SHORT).show();
                 pd.setIndeterminate(false);
             }
         });
+    }
+
+    private void popUpBerhasil(String message){
+        Button btnClose;
+        TextView textMessage;
+
+        final Dialog popup = new Dialog(context);
+        popup.setCancelable(false);
+        popup.setCanceledOnTouchOutside(false);
+
+        popup.setContentView(R.layout.dialog_popup_berhasil);
+        btnClose = popup.findViewById(R.id.btn_popupdialog_berhasil_view2);
+        textMessage = popup.findViewById(R.id.text_popupdialog_berhasil);
+
+        textMessage.setText(message);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        popup.show();
+        Objects.requireNonNull(popup.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    private void popUpGagal(String message){
+        Button btnClose;
+        TextView textMessage;
+
+        final Dialog popup = new Dialog(context);
+        popup.setCancelable(false);
+        popup.setCanceledOnTouchOutside(false);
+
+        popup.setContentView(R.layout.dialog_popup_gagal);
+        btnClose = popup.findViewById(R.id.btn_popupdialog_gagal);
+        textMessage = popup.findViewById(R.id.text_popupdialog_gagal);
+
+        textMessage.setText(message);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        popup.show();
+        Objects.requireNonNull(popup.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 }

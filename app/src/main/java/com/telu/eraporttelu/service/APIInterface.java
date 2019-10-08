@@ -8,6 +8,7 @@ import com.telu.eraporttelu.response.loadMapel;
 import com.telu.eraporttelu.response.loadNilai;
 import com.telu.eraporttelu.response.loadSiswa;
 import com.telu.eraporttelu.response.loadTA;
+import com.telu.eraporttelu.response.LoadCPass;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -86,4 +87,11 @@ public interface APIInterface {
             @Query("semester") String semester,
             @Query("namaTA") String namaTA
             );
+
+    @FormUrlEncoded
+    @PUT("Login/lupaPassword")
+    Call<LoadCPass> updatePass(
+            @Field("username") String username,
+            @Field("password") String password
+    );
 }

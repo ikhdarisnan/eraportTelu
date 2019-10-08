@@ -1,7 +1,10 @@
 package com.telu.eraporttelu.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +30,7 @@ import com.telu.eraporttelu.service.APIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -364,16 +368,22 @@ public class lihatNilaiFragment extends Fragment {
             @Override
             public void onResponse(Call<loadNilai> call, Response<loadNilai> response) {
                 if (response.isSuccessful()){
-                    listAllNilai.addAll(response.body().getBundleData());
-                    onGetNilaiByMapel();
-                    listAllNilai=new ArrayList<>();
+                    if (response.body().getBundleData().size()>0){
+                        listAllNilai.addAll(response.body().getBundleData());
+                        onGetNilaiByMapel();
+                        listAllNilai=new ArrayList<>();
+                    }else {
+                        popUpGagal("Data Nilai Siswa Tidak ditemukan");
+                    }
                 }else {
-                    Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(mContext, "Gagal: Data Nilai Tidak ditemukan", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<loadNilai> call, Throwable t) {
+                popUpGagal("Gagal: Harap periksa Jaringan Internet");
                 Toast.makeText(mContext, "Error: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -531,8 +541,57 @@ public class lihatNilaiFragment extends Fragment {
             }
             rataNilai.setText(String.valueOf(avgNilai));
             listFinNilai = new ArrayList<>();
+            popUpBerhasil("Data Nilai Berhasil didapatkan");
             Toast.makeText(mContext, "Data Nilai Berhasil didapatkan", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void popUpBerhasil(String message){
+        Button btnClose;
+        TextView textMessage;
+
+        final Dialog popup = new Dialog(mContext);
+        popup.setCancelable(false);
+        popup.setCanceledOnTouchOutside(false);
+
+        popup.setContentView(R.layout.dialog_popup_berhasil);
+        btnClose = popup.findViewById(R.id.btn_popupdialog_berhasil_view2);
+        textMessage = popup.findViewById(R.id.text_popupdialog_berhasil);
+
+        textMessage.setText(message);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        popup.show();
+        Objects.requireNonNull(popup.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    private void popUpGagal(String message){
+        Button btnClose;
+        TextView textMessage;
+
+        final Dialog popup = new Dialog(mContext);
+        popup.setCancelable(false);
+        popup.setCanceledOnTouchOutside(false);
+
+        popup.setContentView(R.layout.dialog_popup_gagal);
+        btnClose = popup.findViewById(R.id.btn_popupdialog_gagal);
+        textMessage = popup.findViewById(R.id.text_popupdialog_gagal);
+
+        textMessage.setText(message);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        popup.show();
+        Objects.requireNonNull(popup.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     @Override
