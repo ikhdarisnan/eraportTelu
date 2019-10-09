@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/nilai_uas"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUas" />
 
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/uts"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUts" />
 
@@ -105,7 +105,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_1"
                     android:maxLength="3"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh1"
                     tools:layout_editor_absoluteX="-16dp" />
 
@@ -125,7 +125,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_2"
                     android:maxLength="3"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh2" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -144,7 +144,7 @@
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_3"
                     android:maxLength="3"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh3" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_4"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh4" />
 
@@ -181,8 +181,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsbold"
                     android:hint="@string/ulangan_harian_5"
-                    android:maxLength="5"
-                    android:inputType="number"
+                    android:maxLength="3"
+                    android:inputType="numberDecimal"
                     app:layout_constraintTop_toBottomOf="@id/text_dialog_inputUh5" />
             </com.google.android.material.textfield.TextInputLayout>
 

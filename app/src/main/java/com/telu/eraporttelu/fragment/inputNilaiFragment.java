@@ -131,13 +131,15 @@ public class inputNilaiFragment extends Fragment {
 
 
     private void loadDaftarKelas(String NIPGuru){
-        pd.setIndeterminate(true);
+        pd.setVisibility(View.VISIBLE);
+        rvDaftarSiswa.setVisibility(View.INVISIBLE);
         Call<loadKelas> getAllKelasbyGuru = mApiInterface.getDataKelas(NIPGuru);
         getAllKelasbyGuru.enqueue(new Callback<loadKelas>() {
             @Override
             public void onResponse(Call<loadKelas> call, Response<loadKelas> response) {
                 if (response.isSuccessful()){
                     if (response.body().getData().size()>0){
+                        rvDaftarSiswa.setVisibility(View.VISIBLE);
                         for (int i =0 ; i<response.body().getData().size(); i++){
 
                             listDataKelas.add(response.body().getData().get(i));
@@ -152,6 +154,7 @@ public class inputNilaiFragment extends Fragment {
                             spinnerKelasAdapter = new ArrayAdapter<>(mContext,R.layout.layout_simple_spinner_item, arrayTempKelas);
                             spinnerKelasAdapter.setDropDownViewResource(R.layout.layout_spinner_dropdown_item);
                             spinnerKelas.setAdapter(spinnerKelasAdapter);
+                            pd.setVisibility(View.INVISIBLE);
                             spinnerKelas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -165,13 +168,19 @@ public class inputNilaiFragment extends Fragment {
 
                                 }
                             });
+                            pd.setVisibility(View.INVISIBLE);
+                            rvDaftarSiswa.setVisibility(View.VISIBLE);
                             pd.setIndeterminate(false);
                         }
                     }else{
+                        pd.setVisibility(View.INVISIBLE);
+                        rvDaftarSiswa.setVisibility(View.VISIBLE);
                         pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    pd.setVisibility(View.INVISIBLE);
+                    rvDaftarSiswa.setVisibility(View.VISIBLE);
                     pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Error1", Toast.LENGTH_SHORT).show();
                 }
@@ -180,6 +189,8 @@ public class inputNilaiFragment extends Fragment {
             @Override
             public void onFailure(Call<loadKelas> call, Throwable t) {
                 pd.setIndeterminate(false);
+                pd.setVisibility(View.INVISIBLE);
+                rvDaftarSiswa.setVisibility(View.VISIBLE);
                 Toast.makeText(mContext, "Error: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -296,12 +307,16 @@ public class inputNilaiFragment extends Fragment {
 
     private void loadDaftarSiswaKelas(String kelas){
         pd.setIndeterminate(true);
+        pd.setVisibility(View.VISIBLE);
+        rvDaftarSiswa.setVisibility(View.INVISIBLE);
         Call<loadSiswa> getSiswaCall = mApiInterface.getSiswa(kelas);
         getSiswaCall.enqueue(new Callback<loadSiswa>() {
             @Override
             public void onResponse(Call<loadSiswa> call, Response<loadSiswa> response) {
                 if (response.isSuccessful()){
                     if (response.body().getData().size()>0){
+                        pd.setVisibility(View.INVISIBLE);
+                        rvDaftarSiswa.setVisibility(View.VISIBLE);
                         for (int i=0; i<response.body().getData().size();i++){
                             listDataSiswa.add(response.body().getData().get(i));
 //                            mapelSelected = spinnerMapel.getSelectedItem().toString();
@@ -318,10 +333,14 @@ public class inputNilaiFragment extends Fragment {
                         }
                         listDataSiswa = new ArrayList<>();
                     }else {
+                        pd.setVisibility(View.INVISIBLE);
+                        rvDaftarSiswa.setVisibility(View.VISIBLE);
                         pd.setIndeterminate(false);
                         Toast.makeText(mContext, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 }else {
+                    pd.setVisibility(View.INVISIBLE);
+                    rvDaftarSiswa.setVisibility(View.VISIBLE);
                     pd.setIndeterminate(false);
                     Toast.makeText(mContext, "Gagal. Data tidak sesuai", Toast.LENGTH_SHORT).show();
                 }
@@ -329,6 +348,8 @@ public class inputNilaiFragment extends Fragment {
 
             @Override
             public void onFailure(Call<loadSiswa> call, Throwable t) {
+                pd.setVisibility(View.INVISIBLE);
+                rvDaftarSiswa.setVisibility(View.VISIBLE);
                 pd.setIndeterminate(false);
 //                Toast.makeText(mContext, "Error 2: "+t.toString(), Toast.LENGTH_SHORT).show();
             }

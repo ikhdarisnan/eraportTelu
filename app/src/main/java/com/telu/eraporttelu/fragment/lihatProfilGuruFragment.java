@@ -75,7 +75,7 @@ public class lihatProfilGuruFragment extends Fragment {
         ttlGuru = lihatProfileView.findViewById(R.id.text_profilGuru_ttl);
         kontakGuru = lihatProfileView.findViewById(R.id.text_profilGuru_Kontak);
         waliMuridGuru = lihatProfileView.findViewById(R.id.text_profilGuru_Kelas);
-        mapelGuru = lihatProfileView.findViewById(R.id.text_profil_KontakMurid);
+        mapelGuru = lihatProfileView.findViewById(R.id.text_profilGuru_mapel);
 
         onLoadProfileGuru(NIP);
         return lihatProfileView;
@@ -99,7 +99,7 @@ public class lihatProfilGuruFragment extends Fragment {
                             ttlGuru.setText(listDataDiriGuru.get(i).getTempatTanggalLahir());
                             kontakGuru.setText(listDataDiriGuru.get(i).getKontakGuru());
                             waliMuridGuru.setText(listDataDiriGuru.get(i).getIdKelas());
-//                            mapelGuru.setText(listDataDiriGuru.get(i).get;
+                            mapelGuru.setText(listDataDiriGuru.get(i).getIdKelas());
                             pd.setIndeterminate(false);
 
                         }
